@@ -1,0 +1,350 @@
+body {
+	background-image: url(https://s-media-cache-ak0.pinimg.com/736x/8a/8e/ed/8a8eedb6afb1f0cedc2095bdd9b013ad--theatre-lighting-theatre-stage.jpg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	width: 100%; 
+    height: 100%; 
+    position: fixed; 
+    left: 0px; 
+    top: 0px; 
+    z-index: -1;
+}
+
+.name {
+	background-color: transparent;
+	font-size: 120px;
+	font-family: 'New Rocker', cursive;
+
+	color: red;
+	text-align: center;
+	margin: 70px 200px 40px 200px;
+/*	padding-bottom: 100px;
+*/}
+
+.button-row {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: inline-box;
+  display: -webkit-inline-flex;
+  display: -moz-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+.button-row > div {
+  position: relative;
+  width: 160px;
+  height: 50px;
+  margin: 0 15px;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  perspective: 1000px;
+}
+.button-row > div > a {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform: translateZ(-25px);
+  -moz-transform: translateZ(-25px);
+  -ms-transform: translateZ(-25px);
+  -o-transform: translateZ(-25px);
+  transform: translateZ(-25px);
+  -webkit-transition: -webkit-transform 0.25s;
+  -moz-transition: -moz-transform 0.25s;
+  transition: transform 0.25s;
+}
+.button-row > div > a::before, .button-row > div > a::after {
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  width: 160px;
+  height: 50px;
+  position: absolute;
+  border: 5px solid black;
+  box-sizing: border-box;
+  content: attr(title);
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+.button-row > div > a::before {
+  background-color: #000;
+  color: #fff;
+  -webkit-transform: rotateY(0deg) translateZ(25px);
+  -moz-transform: rotateY(0deg) translateZ(25px);
+  -ms-transform: rotateY(0deg) translateZ(25px);
+  -o-transform: rotateY(0deg) translateZ(25px);
+  transform: rotateY(0deg) translateZ(25px);
+}
+.button-row > div > a::after {
+  background-color: #fff;
+  border-color: #000;
+  color: #000;
+  -webkit-transform: rotateX(90deg) translateZ(25px);
+  -moz-transform: rotateX(90deg) translateZ(25px);
+  -ms-transform: rotateX(90deg) translateZ(25px);
+  -o-transform: rotateX(90deg) translateZ(25px);
+  transform: rotateX(90deg) translateZ(25px);
+}
+.button-row > div > a:hover {
+  -webkit-transform: translateZ(-25px) rotateX(-90deg);
+  -moz-transform: translateZ(-25px) rotateX(-90deg);
+  -ms-transform: translateZ(-25px) rotateX(-90deg);
+  -o-transform: translateZ(-25px) rotateX(-90deg);
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+/* this is just icing */
+body {
+  font-family: "Oswald", Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 18pt;
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+}
+
+.main, h1 {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 50%ss;
+}
+
+html, body, .main {
+  height: 100px;
+}
+
+
+.modal {
+    display: none;  Hidden by default 
+    position: fixed;  Stay in place 
+    z-index: 1;  Sit on top 
+    left: 0;
+    top: 0;
+    width: 100%;  Full width 
+    height: 100%;  Full height 
+    overflow: auto;  Enable scroll if needed 
+    background-color: rgb(0,0,0);  Fallback color 
+    background-color: rgba(0,0,0,0.4);
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    background-color: red;
+    color: white;
+    height: 40px;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;
+border-radius: 25px;
+}
+
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 25%;
+    height: 200px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top: -300px; opacity: 0} 
+    to {top: 0; opacity: 1}
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+#Sign {
+	text-align: center;
+	padding-top: 10px;
+	font-family: "Oswald", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+}
+
+.form {
+	margin-top: 20px;
+}
+
+.emailInput {
+	width: 90%;
+	height: 25px;
+	margin-bottom: 35px;
+	margin-top: 25px;
+}
+
+.passInput {
+	width: 90%;
+	height: 25px;
+	margin-top: 25px;
+}
+
+
+.modal {
+	height: 300px;
+	border-radius: 25px;
+	opacity: 1;
+}
+
+
+
+.modal-content {
+	height: 330px;
+}
+
+.submit {
+    background-color: red;
+    border: none;
+    color: white;
+    padding: 5px 5px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 15px 2px 10px 20px;
+    cursor: pointer;
+
+}
+
+#modalDiv1 {
+	position: absolute;;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vw;
+	background: rgba(255, 255, 255, 0.5);
+	opacity: 0.5;
+	display: none;
+
+}
+
+#bandName {
+	font-size: 75px;
+	background-color: red;
+	margin: 20px 30px 20px 30px;
+}
+
+#bandPic {
+	height: 175px;
+	width: 175px;
+
+}
+
+#bio {
+	display: flex;
+	width: 48%;
+	height: 350px;
+	margin: 20px 0px 20px 30px;
+	border: 3px solid white;
+	overflow: hidden;
+}
+
+#tickets {
+	display: flex;
+	width: 48%;
+	height: 350px;
+	margin: 20px 20px 20px 30px;
+	border: 3px solid white;
+	font-size: 14pt;
+
+}
+
+#topTwo {
+	display: inline-flex;
+
+}
+
+#slick {
+	text-align: center;
+	font size: 50px;
+	color: white;
+	border-width: 3px solid white;
+	background-color: red;
+	margin: 20px 40px 30px 40px;
+}
+
+#openDiv {
+	text-align: center;
+	font size: 50px;
+	color: white;
+	border-width: 3px solid white;
+	background-color: red;
+	height: 275px;
+	margin: 20px 20px 20px 30px;
+	width: 100%;
+}
+
+#myBands {
+	text-align: center;
+	font size: 50px;
+	color: white;
+	border-width: 3px solid white;
+	background-color: red;
+	height: 275px;
+	margin: 20px 20px 20px 30px;
+	width: 100%;
+}
+
+td {
+	border: 1px solid white;
+}
+#btm2 {
+	display: flex;
+	justify-content: space-between;
+}
