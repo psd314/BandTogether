@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Firebase Authorization</title>
+		<meta charset="UTF-8">
+	</head>
+	<style>
+		body {
+			box-sizing: border-box;
+			margin: 0;
+			padding: 0;
+		}
+		.logIn,
+		.create {
+			display: block;
+			text-align: center;
+			margin: 100px;
+		}
+	</style>
+	<body>
+		<div class="container">
+			<div class='logIn' 	>
+				<h3> Log In </h3>
+				Email
+				<input id='email' type="text" value='pdixon555@hotmail.com'><br>
+				Password
+				<input id='password' type="text" value='password'><br>
+				<button id='signIn' type="button">Sign In</button><br>
+				<button id='signOut' type="button">Sign Out</button>
+			</div>
+			<div class='create'>
+				<h3>Create</h3>
+				Email
+				<input id='createEmail' type="text" value='pdixon555@hotmail.com'><br>
+				Password
+				<input id='createPassword' type="text" value='password'><br>
+				Confirm Password
+				<input id='confirmPassword' type="text" value='password'><br>
+				<button id='create' type="button" >Create</button><br>
+			</div>
+		</div>
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+		<script src="./slick/slick.js" type="text/javascript" charset="utf-8"></script>
+		<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+		<script type="text/javascript">
+		var email;
+		var password;
+		
+		var config = {
+		apiKey: "AIzaSyC6sqYsPCP2CUv8vhNEHhn2Y6vA8UbNm_k",
+		authDomain: "band-project-430af.firebaseapp.com",
+		databaseURL: "https://band-project-430af.firebaseio.com",
+		projectId: "band-project-430af",
+		storageBucket: "",
+		messagingSenderId: "231299899809"
+		};
+		firebase.initializeApp(config);
+		$(document).on('ready', function() {
+		// get current user and listener
+		var user = firebase.auth().currentUser;
+		firebase.auth().onAuthStateChanged(function(user) {
+		if (user) {
+			console.log(user);
+			console.log('signed in');
+		} else {
+		}
+		});
+
+		$('#signIn').on('click', function() {
+			email = $('#email').val();
+			password = $('#password').val();
+			console.log(email);
+			console.log(password);
+			firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// ...
+		}).then(function() {
+			window.location.href = "slick.html";
+			console.log(firebase.auth().currentUser.uid);
+		});
+		});
+		
+		$('#signOut').on('click', function() {
+			firebase.auth().signOut().then(function() {
+			console.log('sign out successful')
+		}).catch(function(error) {
+		// An error happened.
+		});
+		});
+
+		$('#create').on('click', function() {
+			if($('#createPassword').val().trim() === $('#confirmPassword').val().trim()) {
+				email = $('#createEmail').val().trim();
+				password = $('#createPassword').val().trim();
+			}
+			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+		// Handle Errors here.
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		// ...
+		}).then(function() {
+			console.log( firebase.auth().currentUser.uid);
+
+			firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
+				email: email,
+				password: password, 
+				favorites: "",
+				currentArtist: ""				  
+        	});	
+		});
+		firebase.database().ref().once('child_added', function() {
+			window.location.href = "slick.html";
+			});
+				});	// end $(#create).on-click
+				});	// end $(document).ready
+		</script>
+	</body>
+</html>

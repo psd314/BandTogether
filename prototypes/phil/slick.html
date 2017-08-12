@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Slick Playground</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="./slick/slick.css">
+    <link rel="stylesheet" type="text/css" href="./slick/slick-theme.css">
+    <script src="https://use.fontawesome.com/9b186a5162.js"></script>
+    <style type="text/css">
+    html, body {
+    margin: 0;
+    padding: 0;
+    }
+    * {
+    box-sizing: border-box;
+    }
+    .slider {
+    width: 50%;
+    margin: 100px auto;
+    }
+    .slick-slide {
+    margin: 0px 20px;
+    }
+    .slick-slide img {
+    width: 100%;
+    }
+    .slick-prev:before,
+    .slick-next:before {
+    color: black;
+    }
+    .favorites {
+    text-align: center;
+    }
+    .input {
+    display: inline-block;
+    margin: auto;
+    }
+    </style>
+  </head>
+  <body>
+    <button id='signOut' type="button">Sign Out</button>
+
+    <section id='carousel' class="center slider">
+      <div>
+        <img data-val='1'  src="http://www.badassoftheweek.com/honeybadger1.jpg">
+      </div>
+      <div>
+        <img data-val='2' src="http://www.badassoftheweek.com/honeybadger1.jpg">
+      </div>
+      <div>
+        <img data-val='3' src="http://www.badassoftheweek.com/honeybadger1.jpg">
+      </div>
+      <div>
+        <img data-val='4' src="http://www.badassoftheweek.com/honeybadger1.jpg">
+      </div>
+      <div>
+        <img data-val='5' src="http://www.badassoftheweek.com/honeybadger1.jpg">
+      </div>
+    </section>
+    <div class='favorites'>
+      <div class='input'>
+        Search:<br>
+        <input id='searchInput' type='text'><br>
+        <button id='add' type='button'>Search</button>
+      </div>
+      <div id='searchResults'>
+        <h3>Search Results</h3>
+        <div id='searchTerms'></div>
+      </div>
+    </div>
+
+    <div class='displayFavorites' style='display: flex; justify-content: space-around;'>
+      <div class='loadedFavorite' style='display: inline-block; border: 3px solid green; '>
+        <h3>Currently Playing (This artist will be in Slick)</h3>
+        <div id='currentArtist'></div>
+      </div>
+      <div class='savedFavorites' style='display: inline-block; border: 3px solid purple; '>
+        <table id='artists'>
+          <tr>
+            <th>Artist</th>
+            <th>Select</th>
+            <th>Remove</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
+    <script src="./slick/slick.js" type="text/javascript" charset="utf-8"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+    <script type="text/javascript">
+          var config = {
+    apiKey: "AIzaSyC6sqYsPCP2CUv8vhNEHhn2Y6vA8UbNm_k",
+    authDomain: "band-project-430af.firebaseapp.com",
+    databaseURL: "https://band-project-430af.firebaseio.com",
+    projectId: "band-project-430af",
+    storageBucket: "",
+    messagingSenderId: "231299899809"
+    };
+    firebase.initializeApp(config);
+    var favorited;
+
+    $(document).on('ready', function() {
+    
+    $(".center").slick({
+    dots: true,
+    infinite: true,
+    centerMode: false,
+    slidesToShow: 3,
+    slidesToScroll: 1
+    });
+
+    var user = firebase.auth().currentUser;
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+    console.log(user);
+    console.log('signed in');
+
+    // set timestamp to trigger firebase callback
+        // use callback from timestamp to get user fav's from fb
+    var sessionsRef = firebase.database().ref(`users/${user.uid}`);
+    sessionsRef.update({ 
+      lastSession: firebase.database.ServerValue.TIMESTAMP
+    });
+
+    } else {
+      console.log('not signed in')
+      window.location.href = "firebaseAuth.html";
+    }
+    });
+
+    
+    // search a term and show
+    $('#add').on('click', function() {
+      $('#searchTerms').empty().append('<div>' + $('#searchInput').val().trim() + 
+        "<button type='button' class='load'><i class='fa fa-upload' aria-hidden='true'></i></i></button>" +
+        '<button type="button" class="save"><i class="fa fa-check" aria-hidden="true"></i></button></div>');
+      $('#searchInput').val("");
+    });
+
+    // click to save to favorites
+    $('#searchTerms').on('click', '.save', function() {
+      // write favorite to firebase
+        firebase.database().ref(`users/${firebase.auth().currentUser.uid}/favorites`).push({
+        favorite: $(this).parent()[0].innerText,
+        songs: ['song 1', 'song 2', 'song 3', 'song 4', 'song 5']         
+        });
+        $(this).parent().remove();
+        // check to see if artist is already in favorites and notify user?
+    });
+
+    // add favorite to table after on-click of checkbox button
+    firebase.database().ref('users').on('child_changed', function(snap){
+        var favoritesHtml = "<tr><th>Artists</th><th>Load</th><th>Remove</th></tr>";
+        $('#artists').append(favoritesHtml);
+          $.each(snap.val().favorites, function(k, v) {
+            favoritesHtml += `<tr data-id='${k}'><td>` + v.favorite + '</td>' +
+            "<td><button type='button' class='load'><i class='fa fa-upload' aria-hidden='true'></i></i></button></td>" +
+            "<td><button type='button' class='remove'><i class='fa fa-trash' aria-hidden='true'></i></button></td></tr>";
+          });
+          $('#artists').empty().append(favoritesHtml);
+          $('#currentArtist').empty().append(`<div data-id='${snap.val().currentArtist[0]}'>` +
+            snap.val().currentArtist[1] + '</div>');
+          // load to slick
+          console.log(snap.val());
+        });
+     
+     // load selection to current artist  //clear button for search results?
+    $('#artists').on('click', '.load', function() { // add #searchTerm to $, structure searchTerm results same as favorites 
+      // console.log($(this).parent().parent().attr('data-id'));
+      firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
+        // pass data-id and innerText to firebase in an array
+        currentArtist: [$(this).parent().parent().attr('data-id'), $(this).parent().prev()[0].innerText]    
+      });        
+    });
+
+    // remove artist from Favorites Table
+    $('#artists').on('click', '.remove', function() {
+      var favoriteId = $(this).parent().parent().attr('data-id');
+      // if removed data-id matches currentArtist data-id
+      if (favoriteId === $('#currentArtist').children()[0].attributes[0].nodeValue){
+        firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
+        currentArtist: ['none', 'Choose a new artist to load']    
+      });
+      }
+      // currentArtist === removed artists, html prompt to load new artist? blank out slick too?
+      firebase.database().ref(`users/${firebase.auth().currentUser.uid}/favorites/${favoriteId}`).remove();
+      });
+
+    // sign out button
+    $('#signOut').on('click', function() {
+        firebase.auth().signOut().then(function() {
+        console.log('sign out successful')
+      }).catch(function(error) {
+      // An error happened.
+    });
+});
+    });
+
+    // user creates acct, auto signs in and load top artist to slick and TM?
+    // user signs in, load last artist into slick and TM
+    // user does search, button to load, button to save to favorites
+      // check if favorite already exists, limit #?
+    // favorites - button to load to slick and ticket master, button to remove
+
+    // search box features
+    // get source tree/github all working on same files
+    // Saturday - get search working and loading into slick and ticket master
+
+
+    // get search working, write results to doc
+    // load artist into slick and TM from search and favorites?
+    // be able to add/remove artists from favorites
+    // 
+
+    </script>
+  </body>
+</html>
