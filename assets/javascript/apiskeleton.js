@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$("#submit").on("click", function(runApi) {
 		var query = $("#search").val();
 		var queryUrl2 = "https://api.spotify.com/v1/search?query=" + query + "&type=artist&limit=5";
-		var spotifyToken = "BQCM_AP6qth0Y3SKShJ8arEMjLXazPzNunymOFSWNVQL1RsqOt_rxz00eXp2lghgjUF5SOgCWKoYexr50DRpHIZe4pVXJOJkwDtOxWLcOGWKrJ0cpvh_Da6U608XiRvKwDaKND9OCwSh"
+		var spotifyToken = "BQDXueSlC5bqjl_-E5nNnsWVw7kT0qZUaWzI9yvxQ6C7A_WWQL8w04kL36XRkr2auwwXoPzSbWMr2eWfaTDSmpRQownrqttL_cPoYjND341_I9IHt3nl9WWKSSbAxypugrrwISzR38li"
 	//End of ticketmaster api call
 
 	//Begin spotify api call
@@ -37,7 +37,7 @@ $(document).ready(function() {
 	})	
 
 	function runTm() {
-		var artistName = $(this).attr("class");
+		var artistName = $(this).text();
 		var queryUrl = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&apikey=STp440AwxFJGrUI9c9fFXpXQ8dZZuGow"
 		var token = "BQDjYhg68AGCrPp6AhyVllcGHXwmo8GX3YZSuaEAd4lqO6fIMoeONqk9DcBfYIRxoMiCp1P0wK4Mzj_ej_GZ0W7LehVmIbuG45jN9Y-reFnh13H78HpuBF1u3s0ILI8gE7PbBgmmb5rv"	
 		$.ajax({
@@ -60,35 +60,30 @@ $(document).ready(function() {
 				var location = response._embedded.events[i]._embedded.venues[0].city.name;
 				var venue = response._embedded.events[i]._embedded.venues[0].name;
 				var tickets = response._embedded.events[i].url;
-				$("#tm").append("<tr><td>" + date + 
-					"</td><td>" + location + 
-					"</td><td>" + venue + 
-					"</td><td>" + tickets + 
-					"</td></tr>"
-				);
+				$("#tm").append("<tr><td>" + date + "</td><td>" + location + "</td><td>" + venue + "</td><td>" + "<a href='" +  tickets + "'>TICKETS</a></td></tr>");
 			}
 		});	
 	}	
 	
 	$(document).on("click", "#artistbutton", runTm)
 
-	// function displayAlbums() {
-	// 	var artistName = $(this).attr("class");
-	// 	console.log(artistName);
-	// 	var queryId = "https://api.spotify.com/v1/artists/" + artistName + "/albums?offset=0&limit=6&album_type=album&market=ES"
-	// 	$.ajax({
-	// 		url: queryId,
-	// 		headers: {
-	// 			Authorization: 'Bearer  ' + spotifyToken
-	// 		},
-	// 	}).done( function(response) {
-	// 		console.log(response);
-	// 		$("#container").empty();
-	// 		for (var i = 0; i < 6; i++) {
-	// 			$("#container").append("<img id='" + response.items[i].uri + "'class='" + response.items[i].id + "'src='" + response.items[i].images[0].url + "'>")
-	// 		}
-	// 	})
-	// }
+	function displayAlbums() {
+		var artistId = $(this).attr("class");
+		console.log(artistId);
+		var queryId = "https://api.spotify.com/v1/artists/" + artistId + "/albums?offset=0&limit=6&album_type=album&market=ES"
+		$.ajax({
+			url: queryId,
+			headers: {
+				Authorization: 'Bearer  ' + spotifyToken
+			},
+		}).done( function(response) {
+			console.log(response);
+			$("#bandpic").attr("src", );
+			// for (var i = 0; i < 6; i++) {
+			// 	$("#container").append("<img id='" + response.items[i].uri + "'class='" + response.items[i].id + "'src='" + response.items[i].images[0].url + "'>")
+			// }
+		})
+	}
 
 	// function displayTracks() {
 	// 	var albumName = $(this).attr("class");
