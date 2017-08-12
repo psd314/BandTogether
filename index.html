@@ -2,7 +2,7 @@
 <html lang="en-us">
 	<html>
 		<head>
-			<title>FanMeister</title>
+			<title>bandtogether.</title>
 			<meta charset="UTF-8">
 			
 			<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
@@ -12,13 +12,21 @@
 			integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
 			crossorigin="anonymous">
 			</script>
+
+			<link href="https://fonts.googleapis.com/css?family=Arvo|New+Rocker|Sedgwick+Ave+Display" rel="stylesheet">
+      
+			<script type="text/javascript" src="assets/javascript/apiskeleton.js"></script>
 			<link href="https://fonts.googleapis.com/css?family=New+Rocker|Rock+Salt|Sedgwick+Ave+Display" rel="stylesheet">
+			<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+		</head>
+
+
 
 		<body>
 		
 			
 			<div class="sitename">
-				<h1 class="name">Fan-O-Matic</h1>
+				<p class="name">bandtogether.</p>
 			</div>
 			
 			<div class="main">
@@ -37,17 +45,15 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<span class="close">&times;</span>
-							<h2 class="Sign">Sign In !</h2>
+							<h2 id="Sign">SIGN IN !</h2>
 						</div>
 						<div class="modal-body">
-							<form class="form">
 								Email:<br>
-								<input type="text" name="Email" class="emailInput"><br>
+								<input id='email' type="text" name="Email" class="emailInput" value='pdixon555@hotmail.com'><br>
 								Password:<br>
-								<input type="text" name="Password" class="passInput">
-							</form>
+								<input id='password' type="text" name="Password" class="passInput" value='password'>
 						</div>
-						<input type="button" class="submit" value="Sign In!">
+						<input id='signIn' type="button" class="submit" value="Sign In!">
 					</div>
 				</div>
 			<!-- <div container id="modalDiv2">
@@ -58,19 +64,21 @@
 					<div class="modal-content">
 						<div class="modal-header">
 							<span class="close">&times;</span>
-							<h2 class="Sign">Sign Up Now!</h2>
+							<h2 id="Sign">SIGN UP NOW !</h2>
 						</div>
 						<div class="modal-body">
-							<form class="form">
 								Email:<br>
-								<input type="text" name="Email" class="emailInput"><br>
+								<input id='createEmail' type="text" name="Email" class="emailInput" value='pdixon555@hotmail.com'><br>
 								Password:<br>
-								<input type="text" name="Password" class="passInput">
-							</form>
+								<input id='createPassword' type="text" name="Password" class="passInput" value='password'>
+								Confirm Password:<br>
+								<input id='confirmPassword' type="text" name="Password" class="passInput" value='password'>
 						</div>
-						<input type="button" class="submit" value="Sign Me Up!">
+						<input id='create' type="button" class="submit" value="Sign Me Up!">
 					</div>
 				</div>
 			<script src= "assets/javascript/java.js"></script>
+					
+
 		</body>
 	</html>

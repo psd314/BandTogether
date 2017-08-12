@@ -1,5 +1,20 @@
-$(document).ready(function() {
+/// Phil's vars and function declarations start
+var email;
+var password;
 
+var config = {
+    apiKey: "AIzaSyC6sqYsPCP2CUv8vhNEHhn2Y6vA8UbNm_k",
+    authDomain: "band-project-430af.firebaseapp.com",
+    databaseURL: "https://band-project-430af.firebaseio.com",
+    projectId: "band-project-430af",
+    storageBucket: "",
+    messagingSenderId: "231299899809"
+};
+/// Phil's vars and function declarations end
+
+$(document).ready(function() {
+firebase.initializeApp(config);
+  
 	$("#submit").on("click", function(runApi) {
 		var query = $("#search").val();
 		var queryUrl2 = "https://api.spotify.com/v1/search?query=" + query + "&type=artist&limit=5";
@@ -118,6 +133,58 @@ $(document).ready(function() {
 	//Phils code start
 })
 
+     // add firebase
+    $('#create').on('click', function() {
+        if ($('#createPassword').val().trim() === $('#confirmPassword').val().trim()) {
+            console.log('matched');
+            email = $('#createEmail').val().trim();
+            password = $('#createPassword').val().trim();
+  
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+            }).then(function() {
+                console.log(firebase.auth().currentUser.uid);
 
 
+                firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
+                    email: email,
+                    password: password,
+                    favorites: "",
+                    currentArtist: ""
+                });
+            });
+        } else {
+            alert('passwords must match')
+        }
+    });
+    $('#signIn').on('click', function() {
+        email = $('#email').val().trim();
+        password = $('#password').val().trim();
+        console.log( $('#email').val().trim() );
+        console.log( $('#password').val().trim());
+        // 	console.log(email);
+        // 	console.log(password);
+        // 	firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // // Handle Errors here.
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
+        // // ...
+        // }).then(function() {
+        // 	window.location.href = "slick.html";
+        // 	console.log(firebase.auth().currentUser.uid);
+        // });
+    });
 
+    // $('#signOut').on('click', function() {
+    // 	firebase.auth().signOut().then(function() {
+    // 	console.log('sign out successful')
+    // }).catch(function(error) {
+    // // An error happened.
+    // });
+    // });
+
+
+});

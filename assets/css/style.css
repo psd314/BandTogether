@@ -16,9 +16,8 @@ body {
 .name {
 	background-color: transparent;
 	font-size: 120px;
-	font-family: 'New Rocker', cursive;
-
-	color: red;
+  font-family: 'Arvo', serif;
+  color: #5684ce;
 	text-align: center;
 	margin: 70px 200px 40px 200px;
 /*	padding-bottom: 100px;
@@ -112,8 +111,8 @@ body {
   font-family: "Oswald", Helvetica, Arial, sans-serif;
   font-weight: 300;
   font-size: 18pt;
-  text-transform: uppercase;
-  padding: 0;
+/*  text-transform: uppercase;
+*/  padding: 0;
   margin: 0;
 }
 
@@ -176,7 +175,7 @@ html, body, .main {
 /* Modal Header */
 .modal-header {
     padding: 2px 8px;
-    background-color: red;
+    background-color: #5684ce;
     color: white;
     height: 40px;
 }
@@ -214,11 +213,12 @@ border-radius: 25px;
     to {top: 0; opacity: 1}
 }
 
-.Sign {
+#Sign {
 	text-align: center;
 	padding-top: 10px;
-	font-family: "Oswald", Helvetica, Arial, sans-serif;
+  font-family: 'Arvo', serif;
 	font-weight: bold;
+  text-transform: uppercase;
 }
 
 .form {
@@ -252,7 +252,7 @@ border-radius: 25px;
 }
 
 .submit {
-    background-color: red;
+    background-color: #5684ce;
     border: none;
     color: white;
     padding: 5px 5px;
@@ -288,6 +288,8 @@ border-radius: 25px;
 #bandPic {
 	height: 175px;
 	width: 175px;
+  margin: 5px 0 0 5px;
+  float: left;
 
 }
 
@@ -351,4 +353,9 @@ td {
 #btm2 {
 	display: flex;
 	justify-content: space-between;
+}
+#navBrand {
+  font-family: 'Arvo', serif;
+  color: #5684ce;
+
 }
