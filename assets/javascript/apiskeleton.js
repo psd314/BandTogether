@@ -15,10 +15,11 @@ var config = {
 $(document).ready(function() {
 firebase.initializeApp(config);
   
-	$("#submit").on("click", function(runApi) {
+	$("#submit").on("click", function(event) {
+		event.preventDefault();
 		var query = $("#search").val();
 		var queryUrl2 = "https://api.spotify.com/v1/search?query=" + query + "&type=artist&limit=5";
-		var spotifyToken = "BQDXueSlC5bqjl_-E5nNnsWVw7kT0qZUaWzI9yvxQ6C7A_WWQL8w04kL36XRkr2auwwXoPzSbWMr2eWfaTDSmpRQownrqttL_cPoYjND341_I9IHt3nl9WWKSSbAxypugrrwISzR38li"
+		var spotifyToken = "BQA5Px9_qwjusHi3-EHIFoZ_muJ5u0Lls31PxmHfeEl0OPDy0e-Dk53HgKTxrqf1g-HlSk4fBynhZdmWaQGFs49PHTn4gg3SnklWAUFrvLJjijSif1WCyMRLHxzc04ySZzHz_vMNK7mC"
 	//Begin of ticketmaster api call
 
 	//Begin last.fm api call
@@ -131,7 +132,6 @@ firebase.initializeApp(config);
 	// $(document).on("click", "img", displayTracks)
 
 	//Phils code start
-})
 
      // add firebase
     $('#create').on('click', function() {
@@ -185,6 +185,4 @@ firebase.initializeApp(config);
     // // An error happened.
     // });
     // });
-
-
 });
