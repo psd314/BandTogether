@@ -4,7 +4,7 @@ body {
 	background-size: cover;
 	width: 100%; 
     height: 100%; 
-    position: fixed; 
+    /*position: fixed; */
     left: 0px; 
     top: 0px; 
     z-index: -1;
@@ -312,11 +312,10 @@ border-radius: 25px;
 
 #slick {
 	text-align: center;
-	font size: 50px;
-	color: white;
+s	color: white;
 	border-width: 3px solid white;
 	background-color: red;
-	margin: 20px 40px 30px 40px;
+	margin: 0;
 }
 
 #openDiv {
