@@ -10,10 +10,10 @@ var config = {
     storageBucket: "",
     messagingSenderId: "231299899809"
 };
-firebase.initializeApp(config);
 /// Phil's vars and function declarations end
 
 $(document).ready(function() {
+firebase.initializeApp(config);
 
     $("#submit").on("click", function(runApi) {
         var query = $("#search").val();
@@ -158,8 +158,8 @@ $(document).ready(function() {
         }
     });
     $('#signIn').on('click', function() {
-        // email = $('#email').val().trim();
-        // password = $('#password').val().trim();
+        email = $('#email').val().trim();
+        password = $('#password').val().trim();
         console.log( $('#email').val().trim() );
         console.log( $('#password').val().trim());
         // 	console.log(email);
