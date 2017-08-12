@@ -1,4 +1,4 @@
-/// Phil's vars and functions start
+/// Phil's vars and function declarations start
 var email;
 var password;
 
@@ -11,7 +11,7 @@ var config = {
     messagingSenderId: "231299899809"
 };
 firebase.initializeApp(config);
-/// Phil's vars and functions end
+/// Phil's vars and function declarations end
 
 $(document).ready(function() {
 
@@ -132,5 +132,56 @@ $(document).ready(function() {
 
     //Phils code start
     // add firebase
+    $('#create').on('click', function() {
+        if ($('#createPassword').val().trim() === $('#confirmPassword').val().trim()) {
+            console.log('matched');
+            email = $('#createEmail').val().trim();
+            password = $('#createPassword').val().trim();
 
-})
+            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
+            }).then(function() {
+                console.log(firebase.auth().currentUser.uid);
+
+                firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
+                    email: email,
+                    password: password,
+                    favorites: "",
+                    currentArtist: ""
+                });
+            });
+        } else {
+            alert('passwords must match')
+        }
+    });
+    $('#signIn').on('click', function() {
+        // email = $('#email').val().trim();
+        // password = $('#password').val().trim();
+        console.log( $('#email').val().trim() );
+        console.log( $('#password').val().trim());
+        // 	console.log(email);
+        // 	console.log(password);
+        // 	firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        // // Handle Errors here.
+        // var errorCode = error.code;
+        // var errorMessage = error.message;
+        // // ...
+        // }).then(function() {
+        // 	window.location.href = "slick.html";
+        // 	console.log(firebase.auth().currentUser.uid);
+        // });
+    });
+
+    // $('#signOut').on('click', function() {
+    // 	firebase.auth().signOut().then(function() {
+    // 	console.log('sign out successful')
+    // }).catch(function(error) {
+    // // An error happened.
+    // });
+    // });
+
+
+});
