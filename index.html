@@ -12,6 +12,8 @@
 			integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
 			crossorigin="anonymous">
 			</script>
+			<script src="https://www.gstatic.com/firebasejs/4.2.0/firebase.js"></script>
+			<script type="text/javascript" src="assets/javascript/apiskeleton.js"></script>
 			<link href="https://fonts.googleapis.com/css?family=New+Rocker|Rock+Salt|Sedgwick+Ave+Display" rel="stylesheet">
 
 		<body>
@@ -40,14 +42,12 @@
 							<h2 class="Sign">Sign In !</h2>
 						</div>
 						<div class="modal-body">
-							<form class="form">
 								Email:<br>
-								<input type="text" name="Email" class="emailInput"><br>
+								<input id='email' type="text" name="Email" class="emailInput" value='pdixon555@hotmail.com'><br>
 								Password:<br>
-								<input type="text" name="Password" class="passInput">
-							</form>
+								<input id='password' type="text" name="Password" class="passInput" value='password'>
 						</div>
-						<input type="button" class="submit" value="Sign In!">
+						<input id='signIn' type="button" class="submit" value="Sign In!">
 					</div>
 				</div>
 			<!-- <div container id="modalDiv2">
@@ -61,16 +61,18 @@
 							<h2 class="Sign">Sign Up Now!</h2>
 						</div>
 						<div class="modal-body">
-							<form class="form">
 								Email:<br>
-								<input type="text" name="Email" class="emailInput"><br>
+								<input id='createEmail' type="text" name="Email" class="emailInput" value='pdixon555@hotmail.com'><br>
 								Password:<br>
-								<input type="text" name="Password" class="passInput">
-							</form>
+								<input id='createPassword' type="text" name="Password" class="passInput" value='password'>
+								Confirm Password:<br>
+								<input id='confirmPassword' type="text" name="Password" class="passInput" value='password'>
 						</div>
-						<input type="button" class="submit" value="Sign Me Up!">
+						<input id='create' type="button" class="submit" value="Sign Me Up!">
 					</div>
 				</div>
 			<script src= "assets/javascript/java.js"></script>
+					
+
 		</body>
 	</html>
