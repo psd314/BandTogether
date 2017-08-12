@@ -288,6 +288,7 @@ border-radius: 25px;
 #bandPic {
 	height: 175px;
 	width: 175px;
+  margin: 5px 0 0 5px;
 
 }
 
@@ -351,4 +352,9 @@ td {
 #btm2 {
 	display: flex;
 	justify-content: space-between;
+}
+#navBrand {
+  font-family: 'Arvo', serif;
+  color: #5684ce;
+
 }
