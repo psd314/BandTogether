@@ -4,7 +4,12 @@ $(document).ready(function() {
 		var query = $("#search").val();
 		var queryUrl2 = "https://api.spotify.com/v1/search?query=" + query + "&type=artist&limit=5";
 		var spotifyToken = "BQDXueSlC5bqjl_-E5nNnsWVw7kT0qZUaWzI9yvxQ6C7A_WWQL8w04kL36XRkr2auwwXoPzSbWMr2eWfaTDSmpRQownrqttL_cPoYjND341_I9IHt3nl9WWKSSbAxypugrrwISzR38li"
-	//End of ticketmaster api call
+	//Begin of ticketmaster api call
+
+	//Begin last.fm api call
+	//Keys for last.fm api 
+	// API key	7e69c5904858f852ede1f60d3d4788bf
+	// Shared secret	7a25cc6363b28ebadc49a4de8bb8c1b7
 
 	//Begin spotify api call
 		// Spotify Client Credentials Flow
