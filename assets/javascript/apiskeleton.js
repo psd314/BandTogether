@@ -13,125 +13,144 @@ var config = {
 /// Phil's vars and function declarations end
 
 $(document).ready(function() {
-    firebase.initializeApp(config);
+firebase.initializeApp(config);
+var spotifyToken = "BQBJGRXgltljTz8jKllh00qrXe9m6AZHZyQGicZYU4hH34bVjnzGVPM0cZFX5xmfKl7olH7182PsOTEfmY2xeUmag33agisfe51_ff33X1nWgl_3WObXxzoqXpy6tZtJ6SGqF8Hha8xiWDekk7kvbUuvtKnLurYx"
+	$("#submit").on("click", function(event) {
+	//1st spotify api call to get 5 most popular artist and make buttons
+		event.preventDefault();
+		var query = $("#search").val();
+		var queryUrl2 = "https://api.spotify.com/v1/search?query=" + query + "&type=artist&limit=5"
+		$.ajax({
+     		url: queryUrl2,
+     		headers: {
+      		  Authorization: 'Bearer ' + spotifyToken
+      		},
+   		})
+   		.done( function(response) {
+		 	 console.log(response.artists.items);
+		 	 $("#results").empty();
+		 	 for (var i = 0; i < 5; i++) {
+		 	 	$("#results").append("<button id='artistbutton' class='" + response.artists.items[i].id + "' type='submit'>" + response.artists.items[i].name + "</button>")
+		 	 }
+		})
+	})	
 
-    $("#submit").on("click", function(event) {
-        event.preventDefault();
-        var query = $("#search").val();
-        var queryUrl2 = "https://api.spotify.com/v1/search?query=" + query + "&type=artist&limit=5";
-        var spotifyToken = "BQA5Px9_qwjusHi3-EHIFoZ_muJ5u0Lls31PxmHfeEl0OPDy0e-Dk53HgKTxrqf1g-HlSk4fBynhZdmWaQGFs49PHTn4gg3SnklWAUFrvLJjijSif1WCyMRLHxzc04ySZzHz_vMNK7mC"
-            //Begin of ticketmaster api call
+	function runTm() {
+	//1st ticketmaster api call to load tour information
+		var artistName = $(this).text();
+		$("#artname").text(artistName);
+		var queryUrl = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&apikey=STp440AwxFJGrUI9c9fFXpXQ8dZZuGow"
+		var token = "BQDjYhg68AGCrPp6AhyVllcGHXwmo8GX3YZSuaEAd4lqO6fIMoeONqk9DcBfYIRxoMiCp1P0wK4Mzj_ej_GZ0W7LehVmIbuG45jN9Y-reFnh13H78HpuBF1u3s0ILI8gE7PbBgmmb5rv"	
+		$.ajax({
+		  method:"GET",
+		  url: queryUrl,
+		  async:true,
+		  dataType: "json",
+		  success: function(json) {
+		              console.log(json);
+		              // Parse the response.
+		              // Do other things.
+		           },
+		  error: function(xhr, status, err) {
+		              // This time, we do not end up here!
+		           }
+		}).done(function(response){
+			console.log(response._embedded);
+			for (var i = 0; i < 7; i++) {
+				var date = response._embedded.events[i].dates.start.localDate;
+				var location = response._embedded.events[i]._embedded.venues[0].city.name;
+				var venue = response._embedded.events[i]._embedded.venues[0].name;
+				var tickets = response._embedded.events[i].url;
+				$("#tm").append("<tr><td>" + date + "</td><td>" + location + "</td><td>" + venue + "</td><td>" + "<a href='" +  tickets + "'>TICKETS</a></td></tr>");
+			}
+		});
+	//2nd spotify api call to paste artist image in bio
+		var artistId = $(this).attr("class");
+		var queryId = "https://api.spotify.com/v1/artists/" + artistId + "";
+		$.ajax({
+			url: queryId,
+			headers: {
+				Authorization: 'Bearer  ' + spotifyToken
+			},
+		}).done( function(response) {
+			console.log(response);
+			$("#bandPic").attr("src", "" + response.images[0].url + "");
+		});	
+	//Begin last.fm api call
+	//Keys for last.fm api 
+	//API key	3892b0fc21269a6749520d712b765197
+	// Shared secret	8f167de93e88facab6f170a907590320
+	//Musicgraph api call
+	//var queryInfo = "http://api.musicgraph.com/api/v2/artist/search?api_key=" + musicGraphApi + "&name='" + artistName + "'";
+		var musicGraphApi = "c8618426b6f2b5b13cf4beb4280b46b2";
+		var lastfmKey = "456b1b9fc5eef7b19d5126954a8bcd2a";
+		var queryInfo = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist='" + artistName + "'&api_key=" + lastfmKey + "&format=json";
+		$.ajax({
+			url: queryInfo,
+			method: "GET",
+			async: true,
+			success: function(json) {
+				console.log(json);
+			},
+			error: function(xhr, status, err) {
+				console.log(err)
+			},
+		}).done(function(response) {
+			console.log(response);
+			//$("#bio").text(response.bio.summary);
+		})
+	}	
 
-        //Begin last.fm api call
-        //Keys for last.fm api 
-        // API key	7e69c5904858f852ede1f60d3d4788bf
-        // Shared secret	7a25cc6363b28ebadc49a4de8bb8c1b7
+	//Runs function on press of artist button
+	$(document).on("click", "#artistbutton", runTm)
 
-        //Begin spotify api call
-        // Spotify Client Credentials Flow
-        // var clientId = "977af0fc81734cad8b087e49d2597c42";
-        // var clientSecret = "c6d73d59372241198af8835721ef0f97";
+	// function displayAlbums() {
+	// 	var artistId = $(this).attr("class");
+	// 	console.log(artistId);
+	// 	var queryId = "https://api.spotify.com/v1/artists/" + artistId + "/albums?offset=0&limit=6&album_type=album&market=ES"
+	// 	$.ajax({
+	// 		url: queryId,
+	// 		headers: {
+	// 			Authorization: 'Bearer  ' + spotifyToken
+	// 		},
+	// 	}).done( function(response) {
+	// 		console.log(response);
+	// 		$("#bandPic").attr("src", );
+	// 		// for (var i = 0; i < 6; i++) {
+	// 		// 	$("#container").append("<img id='" + response.items[i].uri + "'class='" + response.items[i].id + "'src='" + response.items[i].images[0].url + "'>")
+	// 		// }
+	// 	})
+	// }
 
-        // $.ajax({
-        // 	method: "POST",
-        // 	url: "https://accounts.spotify.com/api/token",
-        // 	grant_type: "client_credentials"
-        // 	headers: {
-        // 		Authorization: "Basic " + clientId + ":" + clientSecret 
-        // 	},
-        // }).done( function(response) {
-        // 	console.log(response);
-        // })
-        $.ajax({
-                url: queryUrl2,
-                headers: {
-                    Authorization: 'Bearer ' + spotifyToken
-                },
-            })
-            .done(function(response) {
-                console.log(response.artists.items);
-                $("#results").empty();
-                for (var i = 0; i < 5; i++) {
-                    $("#results").append("<button id='artistbutton' class='" + response.artists.items[i].id + "' type='submit'>" + response.artists.items[i].name + "</button>")
-                }
-            })
-    })
+	// function displayTracks() {
+	// 	var albumName = $(this).attr("class");
+	// 	var albumUri = $(this).attr("id");
+	// 	$("#container").empty();
+	// 	$("iframe").attr("src", "https://open.spotify.com/embed?uri=" + albumUri + "")
+	// 	console.log(albumUri);
+	// 	console.log(albumName);
+	// 	var queryAlbumId = "https://api.spotify.com/v1/albums/" + albumName + "/tracks";
+	// 	$.ajax({
+	// 		url: queryAlbumId,	
+	// 		headers: {
+	// 			Authorization: 'Bearer ' + spotifyToken
+	// 		},
+	// 	}).done( function(response) {
+	// 		console.log(response);
+	// 		$("#container").empty();
+	// 		for (var i = 0; i < response.items.length; i++) {
+	// 			$("#container").append("<p class='" + [i] + "'>" + response.items[i].track_number + "</p>");
+	// 			$("." + [i] + "").append("<p>" + response.items[i].name + "</p>");
+	// 		}
+	// 	})
+	// }
 
-    function runTm() {
-        var artistName = $(this).text();
-        var queryUrl = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&apikey=STp440AwxFJGrUI9c9fFXpXQ8dZZuGow"
-        var token = "BQDjYhg68AGCrPp6AhyVllcGHXwmo8GX3YZSuaEAd4lqO6fIMoeONqk9DcBfYIRxoMiCp1P0wK4Mzj_ej_GZ0W7LehVmIbuG45jN9Y-reFnh13H78HpuBF1u3s0ILI8gE7PbBgmmb5rv"
-        $.ajax({
-            method: "GET",
-            url: queryUrl,
-            async: true,
-            dataType: "json",
-            success: function(json) {
-                console.log(json);
-                // Parse the response.
-                // Do other things.
-            },
-            error: function(xhr, status, err) {
-                // This time, we do not end up here!
-            }
-        }).done(function(response) {
-            console.log(response._embedded);
-            for (var i = 0; i < 7; i++) {
-                var date = response._embedded.events[i].dates.start.localDate;
-                var location = response._embedded.events[i]._embedded.venues[0].city.name;
-                var venue = response._embedded.events[i]._embedded.venues[0].name;
-                var tickets = response._embedded.events[i].url;
-                $("#tm").append("<tr><td>" + date + "</td><td>" + location + "</td><td>" + venue + "</td><td>" + "<a href='" + tickets + "'>TICKETS</a></td></tr>");
-            }
-        });
-    }
+	// $(document).on("click", "img", displayTracks)
 
-    $(document).on("click", "#artistbutton", runTm)
+	//Phils code start
 
-    function displayAlbums() {
-        var artistId = $(this).attr("class");
-        console.log(artistId);
-        var queryId = "https://api.spotify.com/v1/artists/" + artistId + "/albums?offset=0&limit=6&album_type=album&market=ES"
-        $.ajax({
-            url: queryId,
-            headers: {
-                Authorization: 'Bearer  ' + spotifyToken
-            },
-        }).done(function(response) {
-            console.log(response);
-            $("#bandpic").attr("src", );
-            // for (var i = 0; i < 6; i++) {
-            // 	$("#container").append("<img id='" + response.items[i].uri + "'class='" + response.items[i].id + "'src='" + response.items[i].images[0].url + "'>")
-            // }
-        })
-    }
+     // add firebase
 
-    // function displayTracks() {
-    // 	var albumName = $(this).attr("class");
-    // 	var albumUri = $(this).attr("id");
-    // 	$("#container").empty();
-    // 	$("iframe").attr("src", "https://open.spotify.com/embed?uri=" + albumUri + "")
-    // 	console.log(albumUri);
-    // 	console.log(albumName);
-    // 	var queryAlbumId = "https://api.spotify.com/v1/albums/" + albumName + "/tracks";
-    // 	$.ajax({
-    // 		url: queryAlbumId,	
-    // 		headers: {
-    // 			Authorization: 'Bearer ' + spotifyToken
-    // 		},
-    // 	}).done( function(response) {
-    // 		console.log(response);
-    // 		$("#container").empty();
-    // 		for (var i = 0; i < response.items.length; i++) {
-    // 			$("#container").append("<p class='" + [i] + "'>" + response.items[i].track_number + "</p>");
-    // 			$("." + [i] + "").append("<p>" + response.items[i].name + "</p>");
-    // 		}
-    // 	})
-    // }
-
-    // $(document).on("click", "img", displayTracks)
-
-    //Phils code start
     var user = firebase.auth().currentUser;
     firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
