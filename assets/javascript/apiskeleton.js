@@ -1,6 +1,7 @@
 /// Phil's vars and function declarations start
 var email;
 var password;
+var favoriteArray = [];
 
 var config = {
     apiKey: "AIzaSyC6sqYsPCP2CUv8vhNEHhn2Y6vA8UbNm_k",
@@ -16,7 +17,7 @@ $(document).ready(function() {
 firebase.initializeApp
 (config);
 
-var spotifyToken = "BQCMIiBndZ3D5H7kgyykl4hL_oDWnDAFeCY-X_7pzbJpseXuVVfKFwRgQYlS4jrJU5syNU5MF2moTZmQjgFkaGLpKi0_SsbFMC1zFOFKV_O17ZieOSWHn4LxOBS8Tvwfl747B5rFnifGC2AiiyQh7Gs3TxzhONWw";
+var spotifyToken = "BQCeYx2P0gBE434iQ4Zlbd5EfpfuslSsbW2PL0bdhoEmWiyust0lqw29r0fVcdzfGMVJPOi_u14RZP0irjIdkTM8ItkiO8NmQxiy7sokbQ8Wlq_Z-c7mOXe_rM7YwIBnZiqZaiG0VGp0DhfDUscmJDlXocFPEfiG";
 
 	$("#submit").on("click", function(event) {
 	//1st spotify api call to get 5 most popular artist and make buttons
@@ -211,6 +212,64 @@ var spotifyToken = "BQCMIiBndZ3D5H7kgyykl4hL_oDWnDAFeCY-X_7pzbJpseXuVVfKFwRgQYlS
         }).catch(function(error) {
             // An error happened.
         })
+    });
+    $('#results').on('click', '.save', function() {
+        favoriteArray = [];
+        favoriteArray.push( $(this).parent().children()[0].outerHTML );
+        // favoriteArray.push($(this).prev()[0].innerText);
+        console.log($(this).parent().children()[0]);
+        console.log($(this).prev()[0].innerText);
+        // $(this).prev().attr('data-id')
+        firebase.database().ref(`users/${firebase.auth().currentUser.uid}/favorites`).push({
+            favorite: $(this).parent().children()[0].outerHTML,
+        });
+        $(this).parent().remove();
+    });
+
+
+
+    firebase.database().ref('users').on('child_changed', function(snap) {
+        var favoritesHtml = "<tr><th>Artist</th><th>Remove</th></tr>";
+        $('#artists').append(favoritesHtml);
+        // construct spotify buttons
+        $.each(snap.val().favorites, function(k, v) {
+            favoritesHtml += `<tr data-id='${k}'><td>` + v.favorite + '</td>' +
+                "<td><button type='button' class='remove'><i class='fa fa-trash' aria-hidden='true'></i></button></td></tr>";
+        });
+        $('#artists').empty().append(favoritesHtml);
+        // load to slick
+        console.log(snap.val());
+    });
+
+    $('#artists').on('click', '.remove', function() {
+        var favoriteId = $(this).parent().parent().attr('data-id');
+        // if removed data-id matches currentArtist data-id
+        if (favoriteId === $('#currentArtist').children()[0].attributes[0].nodeValue) {
+            firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
+                currentArtist: ['none', 'Choose a new artist to load']
+            });
+        }
+        // currentArtist === removed artists, html prompt to load new artist? blank out slick too?
+        firebase.database().ref(`users/${firebase.auth().currentUser.uid}/favorites/${favoriteId}`).remove();
+    });
+
+    var user = firebase.auth().currentUser;
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log(user);
+            console.log('signed in');
+
+            // set timestamp to trigger firebase callback
+            // use callback from timestamp to get user fav's from fb
+            var sessionsRef = firebase.database().ref(`users/${user.uid}`);
+            sessionsRef.update({
+                lastSession: firebase.database.ServerValue.TIMESTAMP
+            });
+
+        } else {
+            console.log('not signed in')
+            window.location.href = "firebaseAuth.html";
+        }
     });
     // firebase listener on artist button saves current artist
     // write to firebase on.click for checkmark button
