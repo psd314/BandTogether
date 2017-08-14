@@ -15,7 +15,7 @@ var config = {
 $(document).ready(function() {
 firebase.initializeApp(config);
 
-var spotifyToken = "BQB-c4uYN1fJxakizBSE6OpXZbtI8ur8NebgDdLcXgrc7dWVuK-kf8wKNiuafVN4yDkRyICV0fbuEsmymLY-5x9E9SoNpmwgnh_-jowrz8V56yVNt1aBmKn8ZJfKNPkb_-RV5GssOjonhnLVse3wHg3wlQ-MKkbM";
+var spotifyToken = "BQDFtcnW0NL1QNMCseMSyRjS41tvCmUkiwn-HbHN9HJFoxnxRPUDh3Nn9BrAREvFZJIWxqs2RJsrqt9MhVsbuXMbgxSP7cn_3z9JGC3Jk4AIVdgNBx3k0eG2J9ngHcPkUMi94w0KsmnZ6H4vBEn47Ah7A0l9HfUc";
 
 	$("#submit").on("click", function(event) {
 	//1st spotify api call to get 5 most popular artist and make buttons
@@ -102,6 +102,24 @@ var spotifyToken = "BQB-c4uYN1fJxakizBSE6OpXZbtI8ur8NebgDdLcXgrc7dWVuK-kf8wKNiua
 		}).done(function(response) {
 			console.log(response);
 			$("#biosummary").html(response.artist.bio.summary);
+		});
+
+		var queryAlbums = "https://api.spotify.com/v1/artists/" + artistId + "/albums?offset=0&limit=5&album_type=album&market=ES"
+		$.ajax({
+			url: queryAlbums,
+			headers: {
+				Authorization: 'Bearer  ' + spotifyToken
+			},
+		}).done( function(response) {
+			console.log(response);
+			for (var i = 0; i < response.items.length; i++) {
+				response.items[i];
+				$("#carousel").append("<div></div>");
+
+			}
+			// for (var i = 0; i < 6; i++) {
+			// 	$("#container").append("<img id='" + response.items[i].uri + "'class='" + response.items[i].id + "'src='" + response.items[i].images[0].url + "'>")
+			// }
 		})	
 	}	
 
