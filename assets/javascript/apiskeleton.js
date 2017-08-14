@@ -171,6 +171,7 @@ var spotifyToken = "BQDFtcnW0NL1QNMCseMSyRjS41tvCmUkiwn-HbHN9HJFoxnxRPUDh3Nn9BrA
 
 	//Phils code start
 
+
      // add firebase
 
     var user = firebase.auth().currentUser;
