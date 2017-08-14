@@ -14,33 +14,14 @@ var config = {
 
 $(document).ready(function() {
 firebase.initializeApp(config);
-  
-	$("#submit").on("click", function(runApi) {
+
+var spotifyToken = "BQDFtcnW0NL1QNMCseMSyRjS41tvCmUkiwn-HbHN9HJFoxnxRPUDh3Nn9BrAREvFZJIWxqs2RJsrqt9MhVsbuXMbgxSP7cn_3z9JGC3Jk4AIVdgNBx3k0eG2J9ngHcPkUMi94w0KsmnZ6H4vBEn47Ah7A0l9HfUc";
+
+	$("#submit").on("click", function(event) {
+	//1st spotify api call to get 5 most popular artist and make buttons
+		event.preventDefault();
 		var query = $("#search").val();
-		var queryUrl2 = "https://api.spotify.com/v1/search?query=" + query + "&type=artist&limit=5";
-		var spotifyToken = "BQDXueSlC5bqjl_-E5nNnsWVw7kT0qZUaWzI9yvxQ6C7A_WWQL8w04kL36XRkr2auwwXoPzSbWMr2eWfaTDSmpRQownrqttL_cPoYjND341_I9IHt3nl9WWKSSbAxypugrrwISzR38li"
-	//Begin of ticketmaster api call
-
-	//Begin last.fm api call
-	//Keys for last.fm api 
-	// API key	7e69c5904858f852ede1f60d3d4788bf
-	// Shared secret	7a25cc6363b28ebadc49a4de8bb8c1b7
-
-	//Begin spotify api call
-		// Spotify Client Credentials Flow
-		// var clientId = "977af0fc81734cad8b087e49d2597c42";
-		// var clientSecret = "c6d73d59372241198af8835721ef0f97";
-
-		// $.ajax({
-		// 	method: "POST",
-		// 	url: "https://accounts.spotify.com/api/token",
-		// 	grant_type: "client_credentials"
-		// 	headers: {
-		// 		Authorization: "Basic " + clientId + ":" + clientSecret 
-		// 	},
-		// }).done( function(response) {
-		// 	console.log(response);
-		// })
+		var queryUrl2 = "https://api.spotify.com/v1/search?query=" + query + "&type=artist&limit=5"
 		$.ajax({
      		url: queryUrl2,
      		headers: {
@@ -51,13 +32,16 @@ firebase.initializeApp(config);
 		 	 console.log(response.artists.items);
 		 	 $("#results").empty();
 		 	 for (var i = 0; i < 5; i++) {
-		 	 	$("#results").append("<button id='artistbutton' class='" + response.artists.items[i].id + "' type='submit'>" + response.artists.items[i].name + "</button>")
+		 	 	$("#results").append("<div><button id='artistbutton' class='" + response.artists.items[i].id + "' type='submit'>" + response.artists.items[i].name + "</button>" +
+                    '<button type="button" class="save"><i class="fa fa-check" aria-hidden="true"></i></button></div>');
 		 	 }
 		})
 	})	
 
 	function runTm() {
+	//1st ticketmaster api call to load tour information
 		var artistName = $(this).text();
+		$("#artname").text(artistName);
 		var queryUrl = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&apikey=STp440AwxFJGrUI9c9fFXpXQ8dZZuGow"
 		var token = "BQDjYhg68AGCrPp6AhyVllcGHXwmo8GX3YZSuaEAd4lqO6fIMoeONqk9DcBfYIRxoMiCp1P0wK4Mzj_ej_GZ0W7LehVmIbuG45jN9Y-reFnh13H78HpuBF1u3s0ILI8gE7PbBgmmb5rv"	
 		$.ajax({
@@ -82,15 +66,10 @@ firebase.initializeApp(config);
 				var tickets = response._embedded.events[i].url;
 				$("#tm").append("<tr><td>" + date + "</td><td>" + location + "</td><td>" + venue + "</td><td>" + "<a href='" +  tickets + "'>TICKETS</a></td></tr>");
 			}
-		});	
-	}	
-	
-	$(document).on("click", "#artistbutton", runTm)
-
-	function displayAlbums() {
+		});
+	//2nd spotify api call to paste artist image in bio
 		var artistId = $(this).attr("class");
-		console.log(artistId);
-		var queryId = "https://api.spotify.com/v1/artists/" + artistId + "/albums?offset=0&limit=6&album_type=album&market=ES"
+		var queryId = "https://api.spotify.com/v1/artists/" + artistId + "";
 		$.ajax({
 			url: queryId,
 			headers: {
@@ -98,12 +77,72 @@ firebase.initializeApp(config);
 			},
 		}).done( function(response) {
 			console.log(response);
-			$("#bandpic").attr("src", );
+			$("#bandPic").attr("src", "" + response.images[0].url + "");
+		});	
+	//Begin last.fm api call
+	//Keys for last.fm api 
+	//API key	3892b0fc21269a6749520d712b765197
+	// Shared secret	8f167de93e88facab6f170a907590320
+	//Musicgraph api call
+	//var queryInfo = "http://api.musicgraph.com/api/v2/artist/search?api_key=" + musicGraphApi + "&name='" + artistName + "'";
+		var musicGraphApi = "c8618426b6f2b5b13cf4beb4280b46b2";
+		var lastfmKey = "456b1b9fc5eef7b19d5126954a8bcd2a";
+		var queryInfo = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + artistName + "&api_key=" + lastfmKey + "&format=json&autocorrect[0|1]=yes";
+		//var queryInfo = "http://api.musicgraph.com/api/v2/artist/search?api_key=" + musicGraphApi + "&name=" + artistName + ""
+		$.ajax({
+			url: queryInfo,
+			method: "GET",
+			async: true,
+			success: function(json) {
+				console.log(json);
+			},
+			error: function(xhr, status, err) {
+				console.log(err)
+			},
+		}).done(function(response) {
+			console.log(response);
+			$("#biosummary").html(response.artist.bio.summary);
+		});
+
+		var queryAlbums = "https://api.spotify.com/v1/artists/" + artistId + "/albums?offset=0&limit=5&album_type=album&market=ES"
+		$.ajax({
+			url: queryAlbums,
+			headers: {
+				Authorization: 'Bearer  ' + spotifyToken
+			},
+		}).done( function(response) {
+			console.log(response);
+			for (var i = 0; i < response.items.length; i++) {
+				response.items[i];
+				$("#carousel").append("<div></div>");
+
+			}
 			// for (var i = 0; i < 6; i++) {
 			// 	$("#container").append("<img id='" + response.items[i].uri + "'class='" + response.items[i].id + "'src='" + response.items[i].images[0].url + "'>")
 			// }
-		})
-	}
+		})	
+	}	
+
+	//Runs function on press of artist button
+	$(document).on("click", "#artistbutton", runTm)
+
+	// function displayAlbums() {
+	// 	var artistId = $(this).attr("class");
+	// 	console.log(artistId);
+	// 	var queryId = "https://api.spotify.com/v1/artists/" + artistId + "/albums?offset=0&limit=6&album_type=album&market=ES"
+	// 	$.ajax({
+	// 		url: queryId,
+	// 		headers: {
+	// 			Authorization: 'Bearer  ' + spotifyToken
+	// 		},
+	// 	}).done( function(response) {
+	// 		console.log(response);
+	// 		$("#bandPic").attr("src", );
+	// 		// for (var i = 0; i < 6; i++) {
+	// 		// 	$("#container").append("<img id='" + response.items[i].uri + "'class='" + response.items[i].id + "'src='" + response.items[i].images[0].url + "'>")
+	// 		// }
+	// 	})
+	// }
 
 	// function displayTracks() {
 	// 	var albumName = $(this).attr("class");
@@ -134,12 +173,26 @@ firebase.initializeApp(config);
 
 
      // add firebase
+
+    var user = firebase.auth().currentUser;
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log(user);
+            console.log('signed in');
+        } else {
+            if (window.location.href ===
+                "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/layout333.html") {
+                window.location.href = "index.html";
+            }
+        }
+    });
+
     $('#create').on('click', function() {
         if ($('#createPassword').val().trim() === $('#confirmPassword').val().trim()) {
             console.log('matched');
             email = $('#createEmail').val().trim();
             password = $('#createPassword').val().trim();
-  
+
             firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
@@ -163,28 +216,32 @@ firebase.initializeApp(config);
     $('#signIn').on('click', function() {
         email = $('#email').val().trim();
         password = $('#password').val().trim();
-        console.log( $('#email').val().trim() );
-        console.log( $('#password').val().trim());
-        // 	console.log(email);
-        // 	console.log(password);
-        // 	firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-        // // Handle Errors here.
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
-        // // ...
-        // }).then(function() {
-        // 	window.location.href = "slick.html";
-        // 	console.log(firebase.auth().currentUser.uid);
-        // });
+        console.log($('#email').val().trim());
+        console.log($('#password').val().trim());
+        console.log(email);
+        console.log(password);
+        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+            // Handle Errors here.
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            // ...
+        }).then(function() {
+            window.location.href = "layout333.html";
+            console.log(firebase.auth().currentUser.uid);
+        });
     });
 
-    // $('#signOut').on('click', function() {
-    // 	firebase.auth().signOut().then(function() {
-    // 	console.log('sign out successful')
-    // }).catch(function(error) {
-    // // An error happened.
-    // });
-    // });
-
+    $('#logOut').on('click', function(e) {
+        e.preventDefault();
+        firebase.auth().signOut().then(function() {
+            console.log('sign out successful');
+            window.location.href = "index.html";
+        }).catch(function(error) {
+            // An error happened.
+        })
+    });
+    // firebase listener on artist button saves current artist
+    // write to firebase on.click for checkmark button
+    // firebase listener to add to favorites
 
 });

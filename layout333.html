@@ -9,6 +9,7 @@
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 			<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 			<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+			 <script src="https://use.fontawesome.com/9b186a5162.js"></script>
 			<link rel="stylesheet" type="text/css" href="./slick/slick.css">
 			<link rel="stylesheet" type="text/css" href="./slick/slick-theme.css">
 			<script
@@ -65,10 +66,10 @@
 						<ul class="nav navbar-nav navbar-right">
 							<form class="navbar-form navbar-left">
 								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Search">
+									<input id="search" type="text" class="form-control" placeholder="Search">
 								</div>
-								<button type="submit" class="btn btn-default">Submit</button>
-								<button type="Logout" class="btn btn-default">Logout</button>
+								<button id="submit" type="submit" class="btn btn-default">Submit</button>
+								<button id='logOut' type="Logout" class="btn btn-default">Logout</button>
 							</form>
 						</ul>
 						</div><!-- /.navbar-collapse -->
@@ -76,17 +77,17 @@
 					</nav>
 					<div container="main">
 						<div id="bandName">
-							<h1>So you're a 'bandname' superfan...</h1>
+							<h1>So you're a <span id="artname">bandname</span> superfan...</h1>
 						</div>
 					<div id="topTwo">
 							<div id="bio">
 								<!-- <div id="bandimage"> -->
 								<img src="https://i.ytimg.com/vi/x9Jr9JKpsX8/maxresdefault.jpg" id="bandPic">
 							<!-- 						</div>
-							-->					<p style="font-size: 20px">Poutine blog trust fund gluten-free iPhone ethical sustainable tilde biodiesel crucifix locavore cold-pressed. Waistcoat tote bag tumblr brunch pug taiyaki before they sold out art party four dollar toast lomo. Authentic craft beer beard, selvage biodiesel vape freegan vegan shaman direct trade thundercats snackwave pour-over stumptown. Letterpress bushwick post-ironic pabst. Lumbersexual fanny pack hashtag flannel mumblecore meggings. Before they sold out prism try-hard, farm-to-table meggings forage edison bulb put a bird on it fam stumptown seitan echo park. Before they sold out prism try-hard, farm-to-table meggings forage edison bulb put a bird on it fam stumptown seitan echo park.
+							-->					<p id="biosummary" style="font-size: 20px">Poutine blog trust fund gluten-free iPhone ethical sustainable tilde biodiesel crucifix locavore cold-pressed. Waistcoat tote bag tumblr brunch pug taiyaki before they sold out art party four dollar toast lomo. Authentic craft beer beard, selvage biodiesel vape freegan vegan shaman direct trade thundercats snackwave pour-over stumptown. Letterpress bushwick post-ironic pabst. Lumbersexual fanny pack hashtag flannel mumblecore meggings. Before they sold out prism try-hard, farm-to-table meggings forage edison bulb put a bird on it fam stumptown seitan echo park. Before they sold out prism try-hard, farm-to-table meggings forage edison bulb put a bird on it fam stumptown seitan echo park.
 							</div>
 							<div id="tickets">
-								<table>
+								<table id="tm">
 									<tr>
 										<th>When</th><br><th>Where</th><br><th>Venue</th><br><th>Link</th>
 									</tr>
