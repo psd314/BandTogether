@@ -131,7 +131,7 @@ firebase.initializeApp(config);
 	// $(document).on("click", "img", displayTracks)
 
 	//Phils code start
-})
+
 
      // add firebase
     $('#create').on('click', function() {
