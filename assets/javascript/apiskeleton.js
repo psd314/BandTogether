@@ -40,6 +40,7 @@ var spotifyToken = "BQDFtcnW0NL1QNMCseMSyRjS41tvCmUkiwn-HbHN9HJFoxnxRPUDh3Nn9BrA
 
 	function runTm() {
 	//1st ticketmaster api call to load tour information
+		$("#carousel").empty();
 		var artistName = $(this).text();
 		$("#artname").text(artistName);
 		var queryUrl = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&apikey=STp440AwxFJGrUI9c9fFXpXQ8dZZuGow"
@@ -113,14 +114,9 @@ var spotifyToken = "BQDFtcnW0NL1QNMCseMSyRjS41tvCmUkiwn-HbHN9HJFoxnxRPUDh3Nn9BrA
 		}).done( function(response) {
 			console.log(response);
 			for (var i = 0; i < response.items.length; i++) {
-				response.items[i];
-				$("#carousel").append("<div></div>");
-
+				$("#carousel").append("<div><img data-val='" + [i + 1] + "' class='" + response.items[i].id + "' id='" + response.items[i].uri + "' src='" + response.items[i].images[1].url + "'></div>");
 			}
-			// for (var i = 0; i < 6; i++) {
-			// 	$("#container").append("<img id='" + response.items[i].uri + "'class='" + response.items[i].id + "'src='" + response.items[i].images[0].url + "'>")
-			// }
-		})	
+		});
 	}	
 
 	//Runs function on press of artist button
