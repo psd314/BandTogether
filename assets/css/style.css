@@ -282,29 +282,37 @@ border-radius: 25px;
 	background-color: transparent;
 	margin: 20px 30px 20px 30px;
   font-family: 'Sedgwick Ave Display', cursive;
-  color: red;
+  color: blue;
 }
 
 #bandPic {
 	height: 175px;
 	width: 175px;
-  margin: 5px 0 0 5px;
-  float: left;
-
+  margin: 10px 10px 10px 10px;
+float: left;
 }
+
+#biosummary {
+  position: relative;
+  display: block;
+  flex: wrap;
+  width: 100%;
+  height: 100%;}
 
 #bio {
 	display: flex;
+  flex-wrap: wrap;
+
 	width: 48%;
 	height: 350px;
 	margin: 20px 0px 20px 30px;
 	border: 3px solid white;
-	overflow: hidden;
+	overflow-y: scroll;
 }
 
 #tickets {
 	display: flex;
-	width: 48%;
+	width: 63%;
 	height: 350px;
 	margin: 20px 20px 20px 30px;
 	border: 3px solid white;
@@ -321,7 +329,7 @@ border-radius: 25px;
 	text-align: center;
 	color: white;
 	border-width: 3px solid white;
-	background-color: red;
+	background-color: transparent;
 	margin: 0;
 }
 
@@ -330,10 +338,11 @@ border-radius: 25px;
 	font size: 50px;
 	color: white;
 	border-width: 3px solid white;
-	background-color: red;
+	background-color: transparent;
 	height: 275px;
 	margin: 20px 20px 20px 30px;
-	width: 100%;
+	width: 48%;
+  height: 350px;
 }
 
 #myBands {
@@ -344,7 +353,7 @@ border-radius: 25px;
 	background-color: red;
 	height: 275px;
 	margin: 20px 20px 20px 30px;
-	width: 100%;
+	width: 35%;
 }
 
 td {
@@ -359,3 +368,24 @@ td {
   color: #5684ce;
 
 }
+
+#tm {
+  text-align: center;
+  font-size: 25px;
+  margin: 20px 0 0 30px;
+  }
+
+  .slick-track {
+
+  }
+
+  #slick {
+
+  }
+
+  #artistbutton {
+
+    background-color: transparent;
+    margin-top: 30px;
+    margin-right:  25px;
+  }
