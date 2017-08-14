@@ -13,9 +13,10 @@ var config = {
 /// Phil's vars and function declarations end
 
 $(document).ready(function() {
-firebase.initializeApp(config);
+firebase.initializeApp
+(config);
 
-var spotifyToken = "BQDFtcnW0NL1QNMCseMSyRjS41tvCmUkiwn-HbHN9HJFoxnxRPUDh3Nn9BrAREvFZJIWxqs2RJsrqt9MhVsbuXMbgxSP7cn_3z9JGC3Jk4AIVdgNBx3k0eG2J9ngHcPkUMi94w0KsmnZ6H4vBEn47Ah7A0l9HfUc";
+var spotifyToken = "BQCMIiBndZ3D5H7kgyykl4hL_oDWnDAFeCY-X_7pzbJpseXuVVfKFwRgQYlS4jrJU5syNU5MF2moTZmQjgFkaGLpKi0_SsbFMC1zFOFKV_O17ZieOSWHn4LxOBS8Tvwfl747B5rFnifGC2AiiyQh7Gs3TxzhONWw";
 
 	$("#submit").on("click", function(event) {
 	//1st spotify api call to get 5 most popular artist and make buttons
@@ -40,7 +41,6 @@ var spotifyToken = "BQDFtcnW0NL1QNMCseMSyRjS41tvCmUkiwn-HbHN9HJFoxnxRPUDh3Nn9BrA
 
 	function runTm() {
 	//1st ticketmaster api call to load tour information
-		$("#carousel").empty();
 		var artistName = $(this).text();
 		$("#artname").text(artistName);
 		var queryUrl = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&apikey=STp440AwxFJGrUI9c9fFXpXQ8dZZuGow"
@@ -114,56 +114,32 @@ var spotifyToken = "BQDFtcnW0NL1QNMCseMSyRjS41tvCmUkiwn-HbHN9HJFoxnxRPUDh3Nn9BrA
 		}).done( function(response) {
 			console.log(response);
 			for (var i = 0; i < response.items.length; i++) {
-				$("#carousel").append("<div><img data-val='" + [i + 1] + "' class='" + response.items[i].id + "' id='" + response.items[i].uri + "' src='" + response.items[i].images[1].url + "'></div>");
+				$("[data-val=" + [i + 1] + "]").append("<img data-val='" + [i + 1] + "' class='" + response.items[i].id + "' id='" + response.items[i].uri + "' src='" + response.items[i].images[1].url + "'>");
 			}
-		});
+		});	
 	}	
 
 	//Runs function on press of artist button
 	$(document).on("click", "#artistbutton", runTm)
 
-	// function displayAlbums() {
-	// 	var artistId = $(this).attr("class");
-	// 	console.log(artistId);
-	// 	var queryId = "https://api.spotify.com/v1/artists/" + artistId + "/albums?offset=0&limit=6&album_type=album&market=ES"
-	// 	$.ajax({
-	// 		url: queryId,
-	// 		headers: {
-	// 			Authorization: 'Bearer  ' + spotifyToken
-	// 		},
-	// 	}).done( function(response) {
-	// 		console.log(response);
-	// 		$("#bandPic").attr("src", );
-	// 		// for (var i = 0; i < 6; i++) {
-	// 		// 	$("#container").append("<img id='" + response.items[i].uri + "'class='" + response.items[i].id + "'src='" + response.items[i].images[0].url + "'>")
-	// 		// }
-	// 	})
-	// }
+	function displayTracks() {
+		var albumName = $(this).attr("class");
+		var albumUri = $(this).attr("id");
+		$(this).parent().append("<iframe src='https://open.spotify.com/embed?uri=" + albumUri +"'>");
+		//$(this).hide();
+		//$("iframe").attr("src", "https://open.spotify.com/embed?uri=" + albumUri + "");
+		// var queryAlbumId = "https://api.spotify.com/v1/albums/" + albumName + "/tracks";
+		// $.ajax({
+		// 	url: queryAlbumId,	
+		// 	headers: {
+		// 		Authorization: 'Bearer ' + spotifyToken
+		// 	},
+		// }).done( function(response) {
+		// 	console.log(response);
+		// })
+	}
 
-	// function displayTracks() {
-	// 	var albumName = $(this).attr("class");
-	// 	var albumUri = $(this).attr("id");
-	// 	$("#container").empty();
-	// 	$("iframe").attr("src", "https://open.spotify.com/embed?uri=" + albumUri + "")
-	// 	console.log(albumUri);
-	// 	console.log(albumName);
-	// 	var queryAlbumId = "https://api.spotify.com/v1/albums/" + albumName + "/tracks";
-	// 	$.ajax({
-	// 		url: queryAlbumId,	
-	// 		headers: {
-	// 			Authorization: 'Bearer ' + spotifyToken
-	// 		},
-	// 	}).done( function(response) {
-	// 		console.log(response);
-	// 		$("#container").empty();
-	// 		for (var i = 0; i < response.items.length; i++) {
-	// 			$("#container").append("<p class='" + [i] + "'>" + response.items[i].track_number + "</p>");
-	// 			$("." + [i] + "").append("<p>" + response.items[i].name + "</p>");
-	// 		}
-	// 	})
-	// }
-
-	// $(document).on("click", "img", displayTracks)
+	$(document).on("click", "img", displayTracks)
 
 	//Phils code start
 
