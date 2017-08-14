@@ -14,7 +14,7 @@ var config = {
 
 $(document).ready(function() {
 firebase.initializeApp(config);
-var spotifyToken = "BQAz6dF265MrPA6NbU1cTwkDhhvLhM7XJeagGK3hkhZQPGoGNIE3br4Rs5l_fYYwC_00cVqE0IQrRERBjTWLRpXzidRGVIDDwrKJ7jeG7tAS7MUz"
+var spotifyToken = "BQB-c4uYN1fJxakizBSE6OpXZbtI8ur8NebgDdLcXgrc7dWVuK-kf8wKNiuafVN4yDkRyICV0fbuEsmymLY-5x9E9SoNpmwgnh_-jowrz8V56yVNt1aBmKn8ZJfKNPkb_-RV5GssOjonhnLVse3wHg3wlQ-MKkbM"
 	$("#submit").on("click", function(event) {
 	//1st spotify api call to get 5 most popular artist and make buttons
 		event.preventDefault();
@@ -30,7 +30,8 @@ var spotifyToken = "BQAz6dF265MrPA6NbU1cTwkDhhvLhM7XJeagGK3hkhZQPGoGNIE3br4Rs5l_
 		 	 console.log(response.artists.items);
 		 	 $("#results").empty();
 		 	 for (var i = 0; i < 5; i++) {
-		 	 	$("#results").append("<button id='artistbutton' class='" + response.artists.items[i].id + "' type='submit'>" + response.artists.items[i].name + "</button>")
+		 	 	$("#results").append("<div><button id='artistbutton' class='" + response.artists.items[i].id + "' type='submit'>" + response.artists.items[i].name + "</button>" +
+                    '<button type="button" class="save"><i class="fa fa-check" aria-hidden="true"></i></button></div>');
 		 	 }
 		})
 	})	
@@ -217,4 +218,8 @@ var spotifyToken = "BQAz6dF265MrPA6NbU1cTwkDhhvLhM7XJeagGK3hkhZQPGoGNIE3br4Rs5l_
             // An error happened.
         })
     });
+    // firebase listener on artist button saves current artist
+    // write to firebase on.click for checkmark button
+    // firebase listener to add to favorites
+
 });
