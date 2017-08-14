@@ -33,7 +33,7 @@ var spotifyToken = "BQCMIiBndZ3D5H7kgyykl4hL_oDWnDAFeCY-X_7pzbJpseXuVVfKFwRgQYlS
 		 	 console.log(response.artists.items);
 		 	 $("#results").empty();
 		 	 for (var i = 0; i < 5; i++) {
-		 	 	$("#results").append("<div><button id='artistbutton' class='" + response.artists.items[i].id + "' type='submit'>" + response.artists.items[i].name + "</button>" +
+		 	 	$("#results").append("<div><button class='artistbutton' data-id='" + response.artists.items[i].id + "' type='submit'>" + response.artists.items[i].name + "</button>" +
                     '<button type="button" class="save"><i class="fa fa-check" aria-hidden="true"></i></button></div>');
 		 	 }
 		})
@@ -69,7 +69,7 @@ var spotifyToken = "BQCMIiBndZ3D5H7kgyykl4hL_oDWnDAFeCY-X_7pzbJpseXuVVfKFwRgQYlS
 			}
 		});
 	//2nd spotify api call to paste artist image in bio
-		var artistId = $(this).attr("class");
+		var artistId = $(this).attr("data-id");
 		var queryId = "https://api.spotify.com/v1/artists/" + artistId + "";
 		$.ajax({
 			url: queryId,
@@ -120,13 +120,13 @@ var spotifyToken = "BQCMIiBndZ3D5H7kgyykl4hL_oDWnDAFeCY-X_7pzbJpseXuVVfKFwRgQYlS
 	}	
 
 	//Runs function on press of artist button
-	$(document).on("click", "#artistbutton", runTm)
+	$(document).on("click", ".artistbutton", runTm)
 
 	function displayTracks() {
 		var albumName = $(this).attr("class");
 		var albumUri = $(this).attr("id");
 		$(this).parent().append("<iframe src='https://open.spotify.com/embed?uri=" + albumUri +"'>");
-		//$(this).hide();
+		$(this).hide();
 		//$("iframe").attr("src", "https://open.spotify.com/embed?uri=" + albumUri + "");
 		// var queryAlbumId = "https://api.spotify.com/v1/albums/" + albumName + "/tracks";
 		// $.ajax({
