@@ -14,7 +14,7 @@ var config = {
 
 $(document).ready(function() {
 firebase.initializeApp(config);
-var spotifyToken = "BQAz6dF265MrPA6NbU1cTwkDhhvLhM7XJeagGK3hkhZQPGoGNIE3br4Rs5l_fYYwC_00cVqE0IQrRERBjTWLRpXzidRGVIDDwrKJ7jeG7tAS7MUz"
+var spotifyToken = "BQB-c4uYN1fJxakizBSE6OpXZbtI8ur8NebgDdLcXgrc7dWVuK-kf8wKNiuafVN4yDkRyICV0fbuEsmymLY-5x9E9SoNpmwgnh_-jowrz8V56yVNt1aBmKn8ZJfKNPkb_-RV5GssOjonhnLVse3wHg3wlQ-MKkbM";
 	$("#submit").on("click", function(event) {
 	//1st spotify api call to get 5 most popular artist and make buttons
 		event.preventDefault();
@@ -84,7 +84,8 @@ var spotifyToken = "BQAz6dF265MrPA6NbU1cTwkDhhvLhM7XJeagGK3hkhZQPGoGNIE3br4Rs5l_
 	//var queryInfo = "http://api.musicgraph.com/api/v2/artist/search?api_key=" + musicGraphApi + "&name='" + artistName + "'";
 		var musicGraphApi = "c8618426b6f2b5b13cf4beb4280b46b2";
 		var lastfmKey = "456b1b9fc5eef7b19d5126954a8bcd2a";
-		var queryInfo = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist='" + artistName + "'&api_key=" + lastfmKey + "&format=json";
+		var queryInfo = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + artistName + "&api_key=" + lastfmKey + "&format=json&autocorrect[0|1]=yes";
+		//var queryInfo = "http://api.musicgraph.com/api/v2/artist/search?api_key=" + musicGraphApi + "&name=" + artistName + ""
 		$.ajax({
 			url: queryInfo,
 			method: "GET",
@@ -97,8 +98,8 @@ var spotifyToken = "BQAz6dF265MrPA6NbU1cTwkDhhvLhM7XJeagGK3hkhZQPGoGNIE3br4Rs5l_
 			},
 		}).done(function(response) {
 			console.log(response);
-			//$("#bio").text(response.bio.summary);
-		})
+			$("#biosummary").html(response.artist.bio.summary);
+		})	
 	}	
 
 	//Runs function on press of artist button
