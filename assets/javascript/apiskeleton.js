@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     firebase.initializeApp(config);
 
-    var spotifyToken = "BQDZjlIyCcbYsGvqmw0dgr0QBAVNvl1xCs1cUx6zYk8Q621CR483fuQgNvg8ArQX0ZPAjuIjB1_OvuMDR_RluUcLU0mGcKsYvnv4QvV9yT5tZ8q7lilNRh4j6428sX70MzDFf8TVKV2LQUehvQFZuxW_JYtKTzPB";
+    var spotifyToken = "BQBPX4OEFJMu1Pk4iNZVK5q7zt2AcvoVvvPUxM8NcCrJjzBn32OZEskCUy98r-coJdM_RHqOCU4KZKgh4GrDy6U-oKmESQMFwuoCjesBzhmoUlJVsi3iK1BaRvCx0KEGUkLYGHh1mH0n9ukDvVPlKfOWnihGZfiQ";
 
     $("#submit").on("click", function(event) {
         //1st spotify api call to get 5 most popular artist and make buttons
@@ -246,12 +246,7 @@ $(document).ready(function() {
             email = $('#createEmail').val().trim();
             password = $('#createPassword').val().trim();
 
-            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ...
-            }).then(function() {
+            firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
                 console.log(firebase.auth().currentUser.uid);
                 firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
                     email: email,
@@ -259,6 +254,13 @@ $(document).ready(function() {
                     favorites: "",
                     currentArtist: ""
                 });
+                // window.location.href = "layout333.html";
+                window.location.href = "https://psd314.github.io/band-project/layout333.html";
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
             });
         } else {
             alert('passwords must match')
@@ -270,8 +272,9 @@ $(document).ready(function() {
         password = $('#password').val().trim();
         console.log(email);
         console.log(password);
-        firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
-            window.location.href = "layout333.html";
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
+            // window.location.href = "layout333.html";
+            window.location.href = "https://psd314.github.io/band-project/layout333.html";
         }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -292,7 +295,8 @@ $(document).ready(function() {
         e.preventDefault();
         firebase.auth().signOut().then(function() {
             console.log('sign out successful');
-            window.location.href = "index.html";
+            // window.location.href = "index.html";
+            window.location.href = "https://psd314.github.io/band-project/index.html";
         }).catch(function(error) {
             // An error happened.
         })
@@ -350,9 +354,14 @@ $(document).ready(function() {
             });
 
         } else {
-            console.log('not signed in')
-            window.location.href = "https://psd314.github.io/band-project/index.html";
-        }                           
+            console.log('not signed in');
+            // if (window.location.href === "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/layout333.html") {
+            //     window.location.href = "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/index.html";
+            // }
+            if (window.location.href === "https://psd314.github.io/band-project/layout333.html") {
+                window.location.href = "https://psd314.github.io/band-project/index.html";
+            }
+        }
     });
 
 
