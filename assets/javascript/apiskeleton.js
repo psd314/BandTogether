@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     firebase.initializeApp(config);
 
-    var spotifyToken = "BQBLIZzIgjk5RTL3PqNwJemOJgANWHga1RSovzKmyOZTD0oyX7yHPhD9zK1F5Aq6qyZIsc0ZHS1nSv_kggwq_ko_ri6zxzIKNRQrIr1TFs2znPz5yJhkhLtHzs0BnG_5tNvmemTnnrW-e3o-ziEASC4-f8L1Theu";
+    var spotifyToken = "BQB_YlYXEdH3p3VLIbJyAbhNVJ6aMqZpu0y38h0BCYlVSUqb3CVGY1B8O2pGt7QAtPXjryI3ishpgVb0mUYWP1mSyChdrqTyDJpkTUIPYJFCUZdgX5NVQdvicjyCNvuou9DEeOIXPCn7Uc4RM-FuTYQwcFIcVZGH";
 
     $("#submit").on("click", function(event) {
         //1st spotify api call to get 5 most popular artist and make buttons
@@ -35,10 +35,11 @@ $(document).ready(function() {
                 $("#results").empty();
                 for (var i = 0; i < 5; i++) {
                     $("#results").append("<div><button class='artistbutton' data-id='" + response.artists.items[i].id + "' type='submit'>" + response.artists.items[i].name + "</button>" +
-                        '<button type="button" class="save"><i class="fa fa-check" aria-hidden="true"></i></button></div>');
+                        '<button type="button" class="save"><i class="fa fa-floppy-o" aria-hidden="true"></i></button></div>');
                 }
             })
     })
+
     function runTm() {
         //1st ticketmaster api call to load tour information
 
@@ -215,12 +216,6 @@ $(document).ready(function() {
                 $("[data-val=" + [i + 1] + "]").append("<img data-val='" + [i + 1] + "' class='" + response.items[i].id + "' id='" + response.items[i].uri + "' src='" + response.items[i].images[1].url + "'>");
             }
         });
-        ////////PHIL'S CODE START ///////////////
-        // update currentArtist in firebase, use to load
-        // firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
-        //     currentArtist: [$(this)[0].innerHTML, $(this)[0].outerHTML]
-        // });
-        ////////PHIL'S CODE END
     }
 
     //Runs function on press of artist button
@@ -276,18 +271,24 @@ $(document).ready(function() {
     $('#signIn').on('click', function() {
         email = $('#email').val().trim();
         password = $('#password').val().trim();
-        console.log($('#email').val().trim());
-        console.log($('#password').val().trim());
         console.log(email);
         console.log(password);
         firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            // ...
+            console.log(errorCode);
+
+            if (errorCode === 'auth/wrong-password') {
+                alert('Wrong password.');
+            } else {
+                alert(errorMessage);
+            }
+            console.log(error);
         }).then(function() {
             window.location.href = "layout333.html";
-            console.log(firebase.auth().currentUser.uid);
+
+            // console.log(firebase.auth().currentUser.uid);
         });
     });
 
@@ -360,21 +361,6 @@ $(document).ready(function() {
         }
     });
 
-    //Phils code start
-    // add firebase
-
-    var user = firebase.auth().currentUser;
-    firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-            console.log(user);
-            console.log('signed in');
-        } else {
-            if (window.location.href ===
-                "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/layout333.html") {
-                window.location.href = "https://psd314.github.io/band-project/index.html";
-            }
-        }
-    });
 
     // once('change_child'), run tm() to load currentArtist after sign in?
     // fix appending tables and carousel
