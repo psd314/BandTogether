@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     firebase.initializeApp(config);
 
-    var spotifyToken = "BQB_YlYXEdH3p3VLIbJyAbhNVJ6aMqZpu0y38h0BCYlVSUqb3CVGY1B8O2pGt7QAtPXjryI3ishpgVb0mUYWP1mSyChdrqTyDJpkTUIPYJFCUZdgX5NVQdvicjyCNvuou9DEeOIXPCn7Uc4RM-FuTYQwcFIcVZGH";
+    var spotifyToken = "BQDZjlIyCcbYsGvqmw0dgr0QBAVNvl1xCs1cUx6zYk8Q621CR483fuQgNvg8ArQX0ZPAjuIjB1_OvuMDR_RluUcLU0mGcKsYvnv4QvV9yT5tZ8q7lilNRh4j6428sX70MzDFf8TVKV2LQUehvQFZuxW_JYtKTzPB";
 
     $("#submit").on("click", function(event) {
         //1st spotify api call to get 5 most popular artist and make buttons
@@ -240,8 +240,6 @@ $(document).ready(function() {
 
     $(document).on("click", "img", displayTracks);
 
-
-
     $('#create').on('click', function() {
         if ($('#createPassword').val().trim() === $('#confirmPassword').val().trim()) {
             console.log('matched');
@@ -255,8 +253,6 @@ $(document).ready(function() {
                 // ...
             }).then(function() {
                 console.log(firebase.auth().currentUser.uid);
-
-
                 firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
                     email: email,
                     password: password,
@@ -268,27 +264,27 @@ $(document).ready(function() {
             alert('passwords must match')
         }
     });
+
     $('#signIn').on('click', function() {
         email = $('#email').val().trim();
         password = $('#password').val().trim();
         console.log(email);
         console.log(password);
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+            window.location.href = "layout333.html";
+        }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorCode);
 
             if (errorCode === 'auth/wrong-password') {
-                alert('Wrong password.');
+                // write html to doc
+                console.log('Wrong password.');
             } else {
                 alert(errorMessage);
             }
             console.log(error);
-        }).then(function() {
-            window.location.href = "layout333.html";
-
-            // console.log(firebase.auth().currentUser.uid);
         });
     });
 
@@ -309,8 +305,6 @@ $(document).ready(function() {
         });
         $(this).parent().remove();
     });
-
-
 
     firebase.database().ref('users').on('child_changed', function(snap) {
         var favoritesHtml = "<tr><th>Artist</th><th>Remove</th></tr>";
