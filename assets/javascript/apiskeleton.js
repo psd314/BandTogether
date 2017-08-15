@@ -184,7 +184,7 @@ $(document).ready(function() {
         //var queryInfo = "http://api.musicgraph.com/api/v2/artist/search?api_key=" + musicGraphApi + "&name='" + artistName + "'";
         var musicGraphApi = "c8618426b6f2b5b13cf4beb4280b46b2";
         var lastfmKey = "456b1b9fc5eef7b19d5126954a8bcd2a";
-        var queryInfo = "http://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + artistName + "&api_key=" + lastfmKey + "&format=json&autocorrect[0|1]=yes";
+        var queryInfo = "https://ws.audioscrobbler.com/2.0/?method=artist.getinfo&artist=" + artistName + "&api_key=" + lastfmKey + "&format=json&autocorrect[0|1]=yes";
         //var queryInfo = "http://api.musicgraph.com/api/v2/artist/search?api_key=" + musicGraphApi + "&name=" + artistName + ""
         $.ajax({
             url: queryInfo,
