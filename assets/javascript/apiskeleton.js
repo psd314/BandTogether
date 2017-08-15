@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     firebase.initializeApp(config);
 
-    var spotifyToken = "BQB_YlYXEdH3p3VLIbJyAbhNVJ6aMqZpu0y38h0BCYlVSUqb3CVGY1B8O2pGt7QAtPXjryI3ishpgVb0mUYWP1mSyChdrqTyDJpkTUIPYJFCUZdgX5NVQdvicjyCNvuou9DEeOIXPCn7Uc4RM-FuTYQwcFIcVZGH";
+    var spotifyToken = "BQBPX4OEFJMu1Pk4iNZVK5q7zt2AcvoVvvPUxM8NcCrJjzBn32OZEskCUy98r-coJdM_RHqOCU4KZKgh4GrDy6U-oKmESQMFwuoCjesBzhmoUlJVsi3iK1BaRvCx0KEGUkLYGHh1mH0n9ukDvVPlKfOWnihGZfiQ";
 
     $("#submit").on("click", function(event) {
         //1st spotify api call to get 5 most popular artist and make buttons

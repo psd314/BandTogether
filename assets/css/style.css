@@ -1,13 +1,11 @@
 body {
 	background-image: url(https://s-media-cache-ak0.pinimg.com/736x/8a/8e/ed/8a8eedb6afb1f0cedc2095bdd9b013ad--theatre-lighting-theatre-stage.jpg);
 	background-repeat: no-repeat;
+  background-attachment: fixed;
 	background-size: cover;
 	width: 100%; 
-    height: 100%; 
-<<<<<<< HEAD
-=======
-    /*position: fixed; */
->>>>>>> e72cf6b0878902e9177f2ea879d4f0f076c4ad40
+  height: 100%; 
+
     left: 0px; 
     top: 0px; 
     z-index: -1;
@@ -183,6 +181,7 @@ html, body, .main {
 /* Modal Body */
 .modal-body {padding: 2px 16px;
 border-radius: 25px;
+margin-top: 10px;
 }
 
 
@@ -248,7 +247,7 @@ border-radius: 25px;
 
 
 .modal-content {
-	height: 330px;
+	height: 400px;
 }
 
 .submit {
@@ -317,6 +316,7 @@ float: left;
 	margin: 20px 20px 20px 30px;
 	border: 3px solid white;
 	font-size: 14pt;
+  overflow: hidden;
 
 }
 
@@ -337,8 +337,8 @@ float: left;
 	text-align: center;
 	font size: 50px;
 	color: white;
-	border-width: 3px solid white;
-	background-color: transparent;
+/*	border-width: 3px solid white;
+*/	background-color: transparent;
 	height: 275px;
 	margin: 20px 20px 20px 30px;
 	width: 48%;
@@ -348,12 +348,25 @@ float: left;
 #myBands {
 	text-align: center;
 	font size: 50px;
-	color: white;
-	border-width: 3px solid white;
-	background-color: red;
+	border-width: 3px solid black;
+	background-color: transparent;
 	height: 275px;
 	margin: 20px 20px 20px 30px;
-	width: 35%;
+	width: 30%;
+}
+
+#artistTable {
+
+  margin-left: 70px;
+  border: none;
+}
+#mybands {
+  font-family: 'Arvo', serif;
+      font-weight: bold;
+      font-size: 45px;
+      color: #f46804;
+      margin-bottom: 14px;
+      text-align: center;
 }
 
 td {
@@ -383,12 +396,12 @@ td {
 
   }
 
-  #artistbutton {
+ /* #artistbutton {
 
     background-color: transparent;
     margin-top: 30px;
     margin-right:  25px;
-  }
+  }*/
 
   #artname {
       font-family: 'Arvo', serif;
@@ -422,3 +435,28 @@ td {
       border: none;
 }
 
+.save {
+  font-size: 25px;
+      color: #f46804;
+      background-color: transparent;
+      border: none;
+}
+
+
+
+#art {
+  text-align: center;
+}
+
+#remove {
+  text-align: center;
+
+}
+
+#artistTable {
+  border: none;
+}
+
+td {
+  border: none;
+}
