@@ -351,8 +351,8 @@ $(document).ready(function() {
 
         } else {
             console.log('not signed in')
-                window.location.href = "https://psd314.github.io/band-project/index.html";
-        }
+            window.location.href = "https://psd314.github.io/band-project/index.html";
+        }                           
     });
 
 
