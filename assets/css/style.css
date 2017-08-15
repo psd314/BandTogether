@@ -4,14 +4,12 @@ body {
 	background-size: cover;
 	width: 100%; 
     height: 100%; 
-<<<<<<< HEAD
-=======
-    /*position: fixed; */
->>>>>>> e72cf6b0878902e9177f2ea879d4f0f076c4ad40
+
     left: 0px; 
     top: 0px; 
     z-index: -1;
 }
+
 
 .name {
 	background-color: transparent;
