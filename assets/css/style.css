@@ -17,7 +17,7 @@ body {
 	background-color: transparent;
 	font-size: 120px;
   font-family: 'Arvo', serif;
-  color: #5684ce;
+  color: #f46804;
 	text-align: center;
 	margin: 70px 200px 40px 200px;
 /*	padding-bottom: 100px;
@@ -175,7 +175,7 @@ html, body, .main {
 /* Modal Header */
 .modal-header {
     padding: 2px 8px;
-    background-color: #5684ce;
+    background-color: #f46804;
     color: white;
     height: 40px;
 }
@@ -252,7 +252,7 @@ border-radius: 25px;
 }
 
 .submit {
-    background-color: #5684ce;
+    background-color: #f46804;
     border: none;
     color: white;
     padding: 5px 5px;
@@ -278,11 +278,11 @@ border-radius: 25px;
 }
 
 #bandName {
-	font-size: 75px;
+	font-size: 100px;
 	background-color: transparent;
 	margin: 20px 30px 20px 30px;
-  font-family: 'Sedgwick Ave Display', cursive;
-  color: blue;
+  font-family: 'Arvo', serif;
+  color: #f46804;
 }
 
 #bandPic {
@@ -365,7 +365,7 @@ td {
 }
 #navBrand {
   font-family: 'Arvo', serif;
-  color: #5684ce;
+  color: #f46804;
 
 }
 
@@ -389,3 +389,36 @@ td {
     margin-top: 30px;
     margin-right:  25px;
   }
+
+  #artname {
+      font-family: 'Arvo', serif;
+      font-weight: bold;
+      font-size: 105px;
+
+
+  }
+
+  #jukebox {
+    font-family: 'Arvo', serif;
+      font-weight: bold;
+      font-size: 45px;
+      color: #f46804;
+
+  }
+
+  #resultz {
+    font-family: 'Arvo', serif;
+      font-weight: bold;
+      font-size: 45px;
+      color: #f46804;
+  }
+
+.artistbutton {
+      font-family: 'Arvo', serif;
+      font-size: 25px;
+      color: #f46804;
+      background-color: transparent;
+      margin: 15px 20px 5px 0;
+      border: none;
+}
+
