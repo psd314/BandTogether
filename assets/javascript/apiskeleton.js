@@ -39,10 +39,11 @@ $(document).ready(function() {
                 }
             })
     })
-
     function runTm() {
         //1st ticketmaster api call to load tour information
+
         var artistName = $(this).text();
+
         $("#artname").text(artistName);
         var queryUrl = "https://app.ticketmaster.com/discovery/v2/events.json?keyword=" + artistName + "&apikey=STp440AwxFJGrUI9c9fFXpXQ8dZZuGow"
         var token = "BQDjYhg68AGCrPp6AhyVllcGHXwmo8GX3YZSuaEAd4lqO6fIMoeONqk9DcBfYIRxoMiCp1P0wK4Mzj_ej_GZ0W7LehVmIbuG45jN9Y-reFnh13H78HpuBF1u3s0ILI8gE7PbBgmmb5rv"
