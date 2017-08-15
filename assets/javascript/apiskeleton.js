@@ -14,6 +14,7 @@ var config = {
 /// Phil's vars and function declarations end
 
 $(document).ready(function() {
+
     firebase.initializeApp(config);
 
     var spotifyToken = "BQB0PMbpmpphUWcSELRnJZkkcIKPTHL7GxIxx-Wx2kBWvMdlDSRBYpkIc1HkIzTwvzOm2LEm3q8eflgx-V2r0-n8-lDQ0PIQ9KcNuMOf3HNdSN_VzYLOKQZh6YtZWURKyElhokOzhHCeOmQnwDFWT3f7M2TeWUlk";
