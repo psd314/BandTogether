@@ -363,18 +363,18 @@ $(document).ready(function() {
     //Phils code start
     // add firebase
 
-    // var user = firebase.auth().currentUser;
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //     if (user) {
-    //         console.log(user);
-    //         console.log('signed in');
-    //     } else {
-    //         if (window.location.href ===
-    //             "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/layout333.html") {
-    //             window.location.href = "index.html";
-    //         }
-    //     }
-    // });
+    var user = firebase.auth().currentUser;
+    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+            console.log(user);
+            console.log('signed in');
+        } else {
+            if (window.location.href ===
+                "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/layout333.html") {
+                window.location.href = "https://psd314.github.io/band-project/index.html";
+            }
+        }
+    });
 
     // once('change_child'), run tm() to load currentArtist after sign in?
     // fix appending tables and carousel
