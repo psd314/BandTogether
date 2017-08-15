@@ -240,55 +240,54 @@ $(document).ready(function() {
 
     $(document).on("click", "img", displayTracks);
 
-
-
     $('#create').on('click', function() {
         if ($('#createPassword').val().trim() === $('#confirmPassword').val().trim()) {
             console.log('matched');
             email = $('#createEmail').val().trim();
             password = $('#createPassword').val().trim();
 
-            firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-                // Handle Errors here.
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ...
-            }).then(function() {
+            firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
                 console.log(firebase.auth().currentUser.uid);
-
-
                 firebase.database().ref(`users/${firebase.auth().currentUser.uid}`).update({
                     email: email,
                     password: password,
                     favorites: "",
                     currentArtist: ""
                 });
+                // window.location.href = "layout333.html";
+                window.location.href = "https://psd314.github.io/band-project/layout333.html";
+            }).catch(function(error) {
+                // Handle Errors here.
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                // ...
             });
         } else {
             alert('passwords must match')
         }
     });
+
     $('#signIn').on('click', function() {
         email = $('#email').val().trim();
         password = $('#password').val().trim();
         console.log(email);
         console.log(password);
-        firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+        firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
+            // window.location.href = "layout333.html";
+            window.location.href = "https://psd314.github.io/band-project/layout333.html";
+        }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
             console.log(errorCode);
 
             if (errorCode === 'auth/wrong-password') {
-                alert('Wrong password.');
+                // write html to doc
+                console.log('Wrong password.');
             } else {
                 alert(errorMessage);
             }
             console.log(error);
-        }).then(function() {
-            window.location.href = "layout333.html";
-
-            // console.log(firebase.auth().currentUser.uid);
         });
     });
 
@@ -296,7 +295,8 @@ $(document).ready(function() {
         e.preventDefault();
         firebase.auth().signOut().then(function() {
             console.log('sign out successful');
-            window.location.href = "index.html";
+            // window.location.href = "index.html";
+            window.location.href = "https://psd314.github.io/band-project/index.html";
         }).catch(function(error) {
             // An error happened.
         })
@@ -309,8 +309,6 @@ $(document).ready(function() {
         });
         $(this).parent().remove();
     });
-
-
 
     firebase.database().ref('users').on('child_changed', function(snap) {
         var favoritesHtml = "<tr><th>Artist</th><th>Remove</th></tr>";
@@ -356,8 +354,13 @@ $(document).ready(function() {
             });
 
         } else {
-            console.log('not signed in')
-                // window.location.href = "https://psd314.github.io/band-project/index.html";
+            console.log('not signed in');
+            // if (window.location.href === "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/layout333.html") {
+            //     window.location.href = "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/index.html";
+            // }
+            if (window.location.href === "https://psd314.github.io/band-project/layout333.html") {
+                window.location.href = "https://psd314.github.io/band-project/index.html";
+            }
         }
     });
 
