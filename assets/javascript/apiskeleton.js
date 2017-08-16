@@ -356,11 +356,13 @@ $(document).ready(function() {
 
         } else {
             console.log('not signed in');
+            console.log(window.location.href);
             // if (window.location.href === "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/layout333.html") {
             //     window.location.href = "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/index.html";
             // }
             if (window.location.href === "https://psd314.github.io/band-project/layout333.html") {
-                window.location.href = "https://psd314.github.io/band-project/index.html";
+                console.log(true);
+                // window.location.href = "https://psd314.github.io/band-project/index.html";
             }
         }
     });
