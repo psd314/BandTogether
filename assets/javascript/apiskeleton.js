@@ -231,7 +231,7 @@ $(document).ready(function() {
         $("iframe").hide();
         var albumName = $(this).attr("class");
         var albumUri = $(this).attr("id");
-        $(this).parent().append("<iframe src='https://open.spotify.com/embed?uri=" + albumUri + "' width='300' height='280' frameborder='0' allowtransparency='true'></iframe>");
+        $(this).parent().append("<iframe src='https://open.spotify.com/embed?uri=" + albumUri + "' width='220' height='280' frameborder='0' allowtransparency='true'></iframe>");
         $(this).hide();
     } // end displayTracks()
 

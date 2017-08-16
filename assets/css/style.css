@@ -332,6 +332,7 @@ float: left;
 	border-width: 3px solid white;
 	background-color: transparent;
 	margin: 0;
+  height: 400px;
 }
 
 #openDiv {
