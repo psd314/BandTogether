@@ -254,8 +254,8 @@ $(document).ready(function() {
                     favorites: "",
                     currentArtist: ""
                 });
-                // window.location.href = "layout333.html";
-                window.location.href = "https://psd314.github.io/band-project/layout333.html"
+                window.location.href = "layout333.html";
+                // window.location.href = "https://psd314.github.io/band-project/layout333.html"
             }).catch(function(error) {
                 // Handle Errors here.
                 var errorCode = error.code;
@@ -273,8 +273,8 @@ $(document).ready(function() {
         console.log(email);
         console.log(password);
         firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
-            // window.location.href = "layout333.html";
-            window.location.href = "https://psd314.github.io/band-project/layout333.html"
+            window.location.href = "layout333.html";
+            // window.location.href = "https://psd314.github.io/band-project/layout333.html"
         }).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
@@ -296,6 +296,7 @@ $(document).ready(function() {
         firebase.auth().signOut().then(function() {
             console.log('sign out successful');
             window.location.href = "index.html";
+            // window.location.href = "https://psd314.github.io/band-project/index.html"
         }).catch(function(error) {
             // An error happened.
         })
@@ -311,7 +312,8 @@ $(document).ready(function() {
 
     firebase.database().ref(`users`).on('child_changed', function(snap) {
         if (snap.val().email === firebase.auth().currentUser.email) {
-            var favoritesHtml = "<tr><th>Artist</th><th>Remove</th></tr>";
+            // var favoritesHtml = "<tr><th>Artist</th><th>Remove</th></tr>";
+            var favoritesHtml = "";
             $('#artistTable').append(favoritesHtml);
             // construct spotify buttons
             $.each(snap.val().favorites, function(k, v) {
@@ -357,13 +359,13 @@ $(document).ready(function() {
         } else {
             console.log('not signed in');
             console.log(window.location.href);
-            // if (window.location.href === "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/layout333.html") {
-            //     window.location.href = "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/index.html";
-            // }
-            if (window.location.href === "https://psd314.github.io/band-project/layout333.html") {
-                // console.log(true);
-                window.location.href = "https://psd314.github.io/band-project/index.html";
+            if (window.location.href === "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/layout333.html") {
+                window.location.href = "file:///C:/Users/Philippe/Dropbox/Desktop/unc/band-project/index.html";
             }
+            // if (window.location.href === "https://psd314.github.io/band-project/layout333.html") {
+            //     // console.log(true);
+            //     window.location.href = "https://psd314.github.io/band-project/index.html";
+            // }
         }
     });
 
