@@ -309,20 +309,25 @@ $(document).ready(function() {
         $(this).parent().remove();
     });
 
-    firebase.database().ref('users').on('child_changed', function(snap) {
-        var favoritesHtml = "<tr><th>Artist</th><th>Remove</th></tr>";
-        $('#artistTable').append(favoritesHtml);
-        // construct spotify buttons
-        $.each(snap.val().favorites, function(k, v) {
-            favoritesHtml += `<tr data-id='${k}'><td>` + v.favorite + '</td>' +
-                "<td><button type='button' class='remove'><i class='fa fa-trash' aria-hidden='true'></i></button></td></tr>";
-        });
-        // load to favorites
-        $('#artistTable').empty().append(favoritesHtml);
-        // load to slick on login
-        console.log(snap.val().currentArtist[0]);
-        if ($('div[data-val="1"]').children().length === 0) {
-            runTm2(snap.val().currentArtist[0], snap.val().currentArtist[2]);
+    firebase.database().ref(`users`).on('child_changed', function(snap) {
+        // console.log(snap.val().email);
+        // console.log(firebase.auth().currentUser.email);
+
+        if (snap.val().email === firebase.auth().currentUser.email) {
+            var favoritesHtml = "<tr><th>Artist</th><th>Remove</th></tr>";
+            $('#artistTable').append(favoritesHtml);
+            // construct spotify buttons
+            $.each(snap.val().favorites, function(k, v) {
+                favoritesHtml += `<tr data-id='${k}'><td>` + v.favorite + '</td>' +
+                    "<td><button type='button' class='remove'><i class='fa fa-trash' aria-hidden='true'></i></button></td></tr>";
+            });
+            // load to favorites
+            $('#artistTable').empty().append(favoritesHtml);
+            // load to slick on login
+            console.log(snap.val().currentArtist[0]);
+            if ($('div[data-val="1"]').children().length === 0) {
+                runTm2(snap.val().currentArtist[0], snap.val().currentArtist[2]);
+            }
         }
     });
 
