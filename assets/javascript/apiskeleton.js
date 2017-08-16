@@ -226,16 +226,13 @@ $(document).ready(function() {
         var albumUri = $(this).attr("id");
         $(this).parent().append("<iframe src='https://open.spotify.com/embed?uri=" + albumUri + "'>");
         $(this).hide();
-        //$("iframe").attr("src", "https://open.spotify.com/embed?uri=" + albumUri + "");
-        // var queryAlbumId = "https://api.spotify.com/v1/albums/" + albumName + "/tracks";
-        // $.ajax({
-        // 	url: queryAlbumId,	
-        // 	headers: {
-        // 		Authorization: 'Bearer ' + spotifyToken
-        // 	},
-        // }).done( function(response) {
-        // 	console.log(response);
-        // })
+        $("img").show();
+        $("iframe").attr("src", "");
+        $("iframe").hide();
+        var albumName = $(this).attr("class");
+        var albumUri = $(this).attr("id");
+        $(this).parent().append("<iframe src='https://open.spotify.com/embed?uri=" + albumUri + "' width='300' height='280' frameborder='0' allowtransparency='true'></iframe>");
+        $(this).hide();
     } // end displayTracks()
 
     $(document).on("click", "img", displayTracks);
