@@ -359,8 +359,9 @@ float: left;
 
 #artistTable {
 
-  margin-left: 70px;
+  /*margin-left: 70px;*/
   border: none;
+  margin: auto;
 }
 #mybands {
   font-family: 'Arvo', serif;
