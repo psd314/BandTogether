@@ -260,7 +260,7 @@ $(document).ready(function() {
                 // ...
             });
         } else {
-            alert('passwords must match')
+            $('#createError').text('passwords must match');
         }
     });
 
@@ -281,8 +281,10 @@ $(document).ready(function() {
             if (errorCode === 'auth/wrong-password') {
                 // write html to doc
                 console.log('Wrong password.');
+                $('#loginError').text('Wrong Email or Password');
             } else {
-                alert(errorMessage);
+                // alert(errorMessage);
+                $('#loginError').text('Wrong Email or Password');
             }
             console.log(error);
         });

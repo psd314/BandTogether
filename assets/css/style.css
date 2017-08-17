@@ -490,3 +490,10 @@ td {
 #slick {
   height: 300px;
 }
+
+#loginError,
+#createError {
+  color: red;
+  font-style: italic;
+  font-size: 10px;
+}
